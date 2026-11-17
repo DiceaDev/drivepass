@@ -178,7 +178,7 @@
 
   /* Patente chilena: sello de versión */
   .patente { display: inline-flex; flex-direction: column; align-items: center; background: var(--blanco); border: 3px solid #111; border-radius: 10px; padding: 4px 16px 6px; box-shadow: inset 0 0 0 2px var(--blanco), inset 0 0 0 3px #111; }
-  .patente b { font-family: var(--titulo); font-stretch: 112%; font-weight: 900; font-size: 2rem; letter-spacing: 0.04em; color: #111; line-height: 1; }
+  .patente b { font-family: var(--titulo); font-stretch: 112%; font-weight: 900; font-size: 2rem; letter-spacing: 0.04em; color: #111; line-height: 1; white-space: nowrap; }
   .patente small { font-size: 0.6rem; font-weight: 700; color: #111; letter-spacing: 0.3em; }
 
   /* ---------- Nota, FAQ, privacidad ---------- */
@@ -246,7 +246,7 @@
           </a>
           <a class="boton boton-secundario" href="#privacidad">Cómo cuida tus datos</a>
         </div>
-        <p class="detalle-version">Versión 1.0, gratis, para Android 7 o superior.</p>
+        <p class="detalle-version" id="detalle-version">Gratis, para Android 7 o superior.</p>
       </div>
 
       <div class="telefono" role="group" aria-label="Ejemplo de DrivePass en Modo control. Elige un documento para ver su código QR.">
@@ -415,8 +415,8 @@
       <div class="caja-descarga">
         <div>
           <h3>DrivePass para Android</h3>
-          <p class="req">Android 7.0 o superior, procesador de 64 bits (casi todos los teléfonos desde 2019). Unos 29 MB.</p>
-          <p class="hash">Para comprobar que el archivo es el original, compara su huella SHA-256 con la publicada junto a cada versión en la página de descargas.</p>
+          <p class="req">Android 7.0 o superior, procesador de 64 bits (casi todos los teléfonos desde 2019).<span id="tamano-apk"></span></p>
+          <p class="hash">Para comprobar que el archivo es el original, compara su huella SHA-256 con la publicada junto a cada versión en la <a href="https://github.com/DiceaDev/drivepass/releases/latest">página de descargas</a>.</p>
           <div class="acciones">
             <a class="boton boton-principal" id="enlace-apk" href="https://github.com/DiceaDev/drivepass/releases/latest">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
@@ -424,8 +424,8 @@
             </a>
           </div>
         </div>
-        <div class="patente" aria-label="Versión 1.0">
-          <b>V1·00</b>
+        <div class="patente" id="patente-version" aria-label="Última versión">
+          <b id="patente-texto">V1</b>
           <small>CHILE</small>
         </div>
       </div>
@@ -517,6 +517,33 @@
 </footer>
 
 <script>
+  // Versión, tamaño y enlace directo del APK desde la última release publicada.
+  // Si GitHub no responde, la página queda con el texto genérico y el botón va a la página de descargas.
+  (function () {
+    var meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'];
+    fetch('https://api.github.com/repos/DiceaDev/drivepass/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function (rel) {
+        var version = String(rel.tag_name || '').replace(/^v/, '');
+        if (!/^\d+\.\d+\.\d+$/.test(version)) return;
+        var f = new Date(rel.published_at);
+        var fecha = isNaN(f) ? '' : ' del ' + f.getDate() + ' ' + meses[f.getMonth()] + ' ' + f.getFullYear();
+        document.getElementById('detalle-version').textContent = 'Versión ' + version + fecha + ', gratis, para Android 7 o superior.';
+        var placa = document.getElementById('patente-version');
+        document.getElementById('patente-texto').textContent = 'V' + version.split('.').join('·');
+        placa.setAttribute('aria-label', 'Versión ' + version);
+        var apk = (rel.assets || []).filter(function (a) { return /\.apk$/i.test(a.name); })[0];
+        if (apk) {
+          document.getElementById('tamano-apk').textContent = ' Unos ' + Math.round(apk.size / 1048576) + ' MB.';
+          // Solo enlaces del propio repositorio en GitHub.
+          if (/^https:\/\/github\.com\/DiceaDev\/drivepass\/releases\/download\//.test(apk.browser_download_url)) {
+            document.getElementById('enlace-apk').href = apk.browser_download_url;
+          }
+        }
+      })
+      .catch(function () {});
+  })();
+
   // Maqueta del Modo control: pestañas y deslizamiento entre documentos de ejemplo.
   (function () {
     var docs = [
