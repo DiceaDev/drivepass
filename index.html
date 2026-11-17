@@ -83,8 +83,15 @@
   .pantalla .cabecera { display: flex; justify-content: space-between; align-items: center; color: #9DC0FF; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; }
   .pantalla .patente-mini { color: var(--blanco); font-family: var(--titulo); font-weight: 900; font-stretch: 120%; font-size: 1.15rem; letter-spacing: 0.02em; }
   .pantalla .pestanas { display: flex; gap: 6px; }
-  .pantalla .pestanas span { font-size: 0.7rem; font-weight: 700; padding: 5px 9px; border-radius: 99px; background: rgba(255, 255, 255, 0.12); color: #DCE6FA; }
-  .pantalla .pestanas span:first-child { background: var(--blanco); color: var(--marino); }
+  .pantalla .pestanas button { font: 700 0.7rem var(--cuerpo); padding: 5px 9px; border-radius: 99px; border: 0; background: rgba(255, 255, 255, 0.12); color: #DCE6FA; cursor: pointer; transition: background 0.2s, color 0.2s; }
+  .pantalla .pestanas button:hover { background: rgba(255, 255, 255, 0.24); }
+  .pantalla .pestanas button[aria-selected="true"] { background: var(--blanco); color: var(--marino); }
+  .tarjeta-qr { touch-action: pan-y; user-select: none; cursor: grab; }
+  .tarjeta-qr.cambiando .qr, .tarjeta-qr.cambiando .fila, .tarjeta-qr.cambiando small { opacity: 0; transform: translateX(var(--dir, 12px)); }
+  .tarjeta-qr .qr, .tarjeta-qr .fila, .tarjeta-qr small { transition: opacity 0.18s, transform 0.18s; }
+  .puntos { display: flex; justify-content: center; gap: 6px; }
+  .puntos i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); transition: background 0.2s, width 0.2s; }
+  .puntos i.activo { background: var(--blanco); width: 16px; border-radius: 3px; }
   .tarjeta-qr { flex: 1; background: var(--blanco); border-radius: 20px; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 10px; }
   .tarjeta-qr .fila { width: 100%; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.85rem; }
   .insignia { font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: var(--vigente-fondo); color: var(--vigente); }
@@ -242,18 +249,19 @@
         <p class="detalle-version">Versión 1.0, gratis, para Android 7 o superior.</p>
       </div>
 
-      <div class="telefono" role="img" aria-label="DrivePass en Modo control mostrando el código QR de la revisión técnica">
+      <div class="telefono" role="group" aria-label="Ejemplo de DrivePass en Modo control. Elige un documento para ver su código QR.">
         <div class="pantalla">
           <div class="cabecera"><span>Modo control</span><span aria-hidden="true">✕</span></div>
           <div class="patente-mini">DEMO·25</div>
-          <div class="pestanas"><span>Revisión técnica</span><span>SOAP</span><span>Permiso</span></div>
-          <div class="tarjeta-qr">
-            <div class="fila"><span>Revisión técnica</span><span class="insignia">Vigente</span></div>
+          <div class="pestanas" role="tablist" aria-label="Documentos"><button type="button" role="tab" aria-selected="true" data-i="0">Revisión técnica</button><button type="button" role="tab" aria-selected="false" tabindex="-1" data-i="1">SOAP</button><button type="button" role="tab" aria-selected="false" tabindex="-1" data-i="2">Permiso</button></div>
+          <div class="tarjeta-qr" id="tarjeta-qr" role="tabpanel" aria-live="polite">
+            <div class="fila"><span id="qr-nombre">Revisión técnica</span><span class="insignia" id="qr-estado">Vigente</span></div>
             <div class="qr" id="qr" aria-hidden="true"></div>
-            <small>Vigente hasta 31 mar 2027</small>
+            <small id="qr-fecha">Vigente hasta 31 mar 2027</small>
             <span class="ver">Ver documento completo</span>
           </div>
-          <div class="pie">Brillo al máximo y pantalla siempre encendida</div>
+          <div class="puntos" aria-hidden="true"><i class="activo"></i><i></i><i></i></div>
+          <div class="pie">Desliza o toca para cambiar de documento</div>
         </div>
       </div>
     </div>
@@ -509,32 +517,93 @@
 </footer>
 
 <script>
-  // Dibuja un QR de muestra (decorativo) para la maqueta del Modo control.
+  // Maqueta del Modo control: pestañas y deslizamiento entre documentos de ejemplo.
   (function () {
-    var n = 21, el = document.getElementById('qr');
-    var semilla = 7;
-    function azar() { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }
-    function enMarca(x, y) {
-      var marcas = [[0, 0], [14, 0], [0, 14]];
-      for (var i = 0; i < 3; i++) {
-        var mx = marcas[i][0], my = marcas[i][1];
-        if (x >= mx && x < mx + 7 && y >= my && y < my + 7) {
-          var dx = x - mx, dy = y - my;
-          var borde = dx === 0 || dy === 0 || dx === 6 || dy === 6;
-          var centro = dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4;
-          return borde || centro ? 1 : 0;
+    var docs = [
+      { nombre: 'Revisión técnica', estado: 'Vigente', clase: '', fecha: 'Vigente hasta 31 mar 2027', semilla: 7 },
+      { nombre: 'SOAP', estado: 'Por vencer', clase: 'vencer', fecha: 'Vence en 14 días', semilla: 41 },
+      { nombre: 'Permiso de circulación', estado: 'Vigente', clase: '', fecha: 'Vigente hasta 31 mar 2027', semilla: 113 }
+    ];
+    var n = 21, actual = 0;
+    var qr = document.getElementById('qr');
+    var tarjeta = document.getElementById('tarjeta-qr');
+    var pestanas = Array.prototype.slice.call(document.querySelectorAll('.pestanas button'));
+    var puntos = Array.prototype.slice.call(document.querySelectorAll('.puntos i'));
+    var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function dibujarQr(semilla) {
+      function azar() { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }
+      function enMarca(x, y) {
+        var marcas = [[0, 0], [14, 0], [0, 14]];
+        for (var i = 0; i < 3; i++) {
+          var mx = marcas[i][0], my = marcas[i][1];
+          if (x >= mx && x < mx + 7 && y >= my && y < my + 7) {
+            var dx = x - mx, dy = y - my;
+            return (dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4)) ? 1 : 0;
+          }
+          if (x >= mx - 1 && x <= mx + 7 && y >= my - 1 && y <= my + 7) return 0;
         }
-        if (x >= mx - 1 && x <= mx + 7 && y >= my - 1 && y <= my + 7) return 0;
+        return -1;
       }
-      return -1;
+      var html = '';
+      for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) {
+        var m = enMarca(x, y);
+        html += (m === -1 ? azar() > 0.52 : m === 1) ? '<i class="n"></i>' : '<i></i>';
+      }
+      qr.innerHTML = html;
     }
-    var html = '';
-    for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) {
-      var m = enMarca(x, y);
-      var negro = m === -1 ? azar() > 0.52 : m === 1;
-      html += negro ? '<i class="n"></i>' : '<i></i>';
+
+    function pintar(i) {
+      var d = docs[i];
+      document.getElementById('qr-nombre').textContent = d.nombre;
+      var estado = document.getElementById('qr-estado');
+      estado.textContent = d.estado;
+      estado.className = 'insignia' + (d.clase ? ' ' + d.clase : '');
+      document.getElementById('qr-fecha').textContent = d.fecha;
+      dibujarQr(d.semilla);
+      pestanas.forEach(function (b, k) {
+        b.setAttribute('aria-selected', k === i ? 'true' : 'false');
+        b.tabIndex = k === i ? 0 : -1;
+      });
+      puntos.forEach(function (p, k) { p.classList.toggle('activo', k === i); });
     }
-    el.innerHTML = html;
+
+    function ir(i, foco) {
+      i = (i + docs.length) % docs.length;
+      if (i === actual) return;
+      var adelante = i > actual;
+      actual = i;
+      if (foco) pestanas[i].focus();
+      if (reducido) { pintar(i); return; }
+      tarjeta.style.setProperty('--dir', adelante ? '-14px' : '14px');
+      tarjeta.classList.add('cambiando');
+      setTimeout(function () {
+        pintar(i);
+        tarjeta.style.setProperty('--dir', adelante ? '14px' : '-14px');
+        requestAnimationFrame(function () { tarjeta.classList.remove('cambiando'); });
+      }, 180);
+    }
+
+    pestanas.forEach(function (b, k) {
+      b.addEventListener('click', function () { ir(k); });
+      b.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); ir(actual + 1, true); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); ir(actual - 1, true); }
+      });
+    });
+
+    // Deslizar con el dedo o arrastrar con el mouse.
+    var inicioX = null;
+    tarjeta.addEventListener('pointerdown', function (e) { inicioX = e.clientX; });
+    window.addEventListener('pointerup', function (e) {
+      if (inicioX === null) return;
+      var dx = e.clientX - inicioX;
+      inicioX = null;
+      if (Math.abs(dx) > 40) ir(actual + (dx < 0 ? 1 : -1));
+    });
+    window.addEventListener('pointercancel', function () { inicioX = null; });
+
+    pintar(0);
   })();
 </script>
 </body>
