@@ -255,7 +255,7 @@
       <div class="telefono" role="group" aria-label="Ejemplo de DrivePass en Modo control. Elige un documento para ver su código QR.">
         <div class="pantalla">
           <div class="cabecera"><span>Modo control</span><span aria-hidden="true">✕</span></div>
-          <div class="patente-mini">DEMO·25</div>
+          <div class="patente-mini"><span class="patente-demo" data-sep="·">DEMO·26</span></div>
           <div class="pestanas" role="tablist" aria-label="Documentos"><button type="button" role="tab" aria-selected="true" data-i="0">Revisión técnica</button><button type="button" role="tab" aria-selected="false" tabindex="-1" data-i="1">SOAP</button><button type="button" role="tab" aria-selected="false" tabindex="-1" data-i="2">Permiso</button></div>
           <div class="tarjeta-qr" id="tarjeta-qr" role="tabpanel" aria-live="polite">
             <div class="fila"><span id="qr-nombre">Revisión técnica</span><span class="insignia" id="qr-estado">Vigente</span></div>
@@ -283,7 +283,7 @@
         </div>
       </div>
       <div class="lista-docs" aria-label="Ejemplo de la lista de documentos en DrivePass">
-        <p class="grupo">Mi auto, sedán, DEMO·25</p>
+        <p class="grupo">Mi auto, sedán, <span class="patente-demo" data-sep="·">DEMO·26</span></p>
         <ul>
           <li>
             <span class="icono-doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span>
@@ -363,7 +363,7 @@
           <div class="tit">CERTIFICADO DE HOMOLOGACIÓN<br>INDIVIDUAL ELECTRÓNICO</div>
           <table>
             <tr><th>FECHA DE EMISIÓN</th><th>PATENTE</th><th>VÁLIDO HASTA</th></tr>
-            <tr><td>15/MAR/2025</td><td>DEMO-25</td><td class="marcado">MAR/2027</td></tr>
+            <tr><td>15/MAR/2025</td><td><span class="patente-demo" data-sep="-">DEMO-26</span></td><td class="marcado">MAR/2027</td></tr>
           </table>
         </div>
         <div class="flecha" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
@@ -520,6 +520,14 @@
 </footer>
 
 <script>
+  // Patente de ejemplo con el año en curso (DEMO·26 en 2026, DEMO·27 en 2027…).
+  (function () {
+    var aa = String(new Date().getFullYear()).slice(-2);
+    Array.prototype.forEach.call(document.querySelectorAll('.patente-demo'), function (el) {
+      el.textContent = 'DEMO' + (el.getAttribute('data-sep') || '·') + aa;
+    });
+  })();
+
   // Versión, tamaño y enlace directo del APK desde la última release publicada.
   // Si GitHub no responde, la página queda con el texto genérico y el botón va a la página de descargas.
   (function () {
