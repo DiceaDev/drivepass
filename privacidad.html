@@ -62,7 +62,7 @@
 
 <main class="contenido">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Vigente desde el 17 de noviembre de 2026.</p>
+  <p class="fecha">Vigente desde el 22 de noviembre de 2026 (versión anterior: 17 de noviembre de 2026).</p>
 
   <div class="resumen">
     <strong>En resumen</strong>
@@ -84,13 +84,14 @@
     <li><strong>Datos leídos de esos documentos</strong>: por ejemplo patente, marca, modelo, VIN, n° de motor, nombre y RUT del propietario, póliza o clase de licencia. La app los lee en el teléfono para mostrártelos ordenados.</li>
     <li><strong>Vehículos</strong>: nombre, tipo, patente, marca, modelo, año, color, VIN y n° de motor.</li>
     <li><strong>Mantenciones y horas agendadas</strong>: fechas, kilometraje, trabajos, lugar y montos que ingreses.</li>
+    <li><strong>Accidentes que registres</strong>: fecha, hora, si hubo heridos, ubicación (solo si la permites), fotos, tu relato y los datos que anotes del otro conductor (nombre, RUT, teléfono, patente, compañía de seguro, póliza y el QR de su SOAP). Úsalos solo para gestionar el siniestro.</li>
   </ul>
   <p>Todo se guarda en una base de datos cifrada dentro del teléfono. La clave de cifrado vive en el almacén seguro de Android y no sale del dispositivo. No hay copia en la nube: la app desactiva el respaldo automático de Android.</p>
 
   <h2>Qué no hace la app</h2>
   <ul>
     <li>No pide crear una cuenta ni datos de contacto.</li>
-    <li>No usa tu ubicación.</li>
+    <li>No sigue tu ubicación. Solo la usa, en primer plano y con tu permiso, para anotar dónde ocurrió un accidente que registras. Nunca en segundo plano y nunca sale del teléfono.</li>
     <li>No incluye publicidad, analítica ni herramientas de seguimiento.</li>
     <li>No envía tus documentos ni tus datos a ningún servidor. En Android, la app no tiene el permiso de internet.</li>
   </ul>
@@ -103,7 +104,8 @@
   <div class="tabla">
     <table>
       <tr><th>Permiso</th><th>Para qué se usa</th></tr>
-      <tr><td>Cámara</td><td>Escanear documentos y leer sus códigos QR. Solo cuando tú lo eliges.</td></tr>
+      <tr><td>Cámara</td><td>Escanear documentos, leer sus códigos QR y fotografiar un accidente. Solo cuando tú lo eliges.</td></tr>
+      <tr><td>Ubicación</td><td>Anotar dónde ocurrió un accidente, si lo permites. Solo con la app abierta.</td></tr>
       <tr><td>Huella, rostro o PIN</td><td>Abrir la app y proteger tus documentos. La verificación la hace el sistema; DrivePass no recibe tu huella.</td></tr>
       <tr><td>Notificaciones</td><td>Avisarte antes de que venza un documento o una hora agendada. Los avisos no muestran datos personales con el teléfono bloqueado.</td></tr>
       <tr><td>Fotos y archivos</td><td>Importar la imagen o el PDF de un documento que elijas. La app solo ve el archivo que seleccionas.</td></tr>
@@ -115,12 +117,16 @@
   <ul>
     <li><strong>Compartir</strong> un documento lo envía a la app que elijas (por ejemplo WhatsApp o correo). Desde ahí aplica la privacidad de esa app.</li>
     <li><strong>Respaldo</strong>: puedes exportar todo a un archivo cifrado con una contraseña que solo tú conoces y guardarlo donde quieras. Sin la contraseña no se puede abrir; tampoco nosotros podemos.</li>
+    <li><strong>Respaldo automático</strong>: si lo activas, la app guarda el respaldo cifrado en la carpeta que elijas, del teléfono o de un servicio como Google Drive. La contraseña queda en el almacén seguro del teléfono. Si eliges una carpeta en la nube, el archivo se sube con la privacidad de ese servicio, pero sigue cifrado.</li>
     <li><strong>Pasar a otro teléfono</strong>: se hace con un archivo cifrado y un QR con la llave, de teléfono a teléfono.</li>
+    <li><strong>Prestar un vehículo</strong>: envía a otro teléfono, en un archivo cifrado y con un QR, los documentos de ese vehículo por el plazo que elijas. DrivePass los borra de ese teléfono al terminar el plazo, pero no puede impedir que la otra persona haga capturas antes.</li>
+    <li><strong>Bitácora y registro de accidente en PDF</strong>: se generan en el teléfono y van a la app que elijas para compartirlos. La bitácora no incluye tus datos personales.</li>
+    <li><strong>Widget</strong>: en la pantalla de inicio muestra solo conteos y el próximo vencimiento, sin patente ni datos personales.</li>
     <li><strong>Agendar en el calendario</strong> abre la pantalla de nuevo evento de tu calendario; tú decides si guardarlo.</li>
   </ul>
 
   <h2>Cuánto tiempo se guardan y cómo borrarlos</h2>
-  <p>Los datos quedan en tu teléfono hasta que los borras. Puedes eliminar un documento, una versión anterior o un vehículo desde la app. Si desinstalas DrivePass, Android borra todos sus datos. Como no tenemos copia, no podemos recuperarlos: haz respaldos.</p>
+  <p>Los datos quedan en tu teléfono hasta que los borras. Puedes eliminar un documento, una versión anterior, un registro de accidente o un vehículo desde la app. Los vehículos prestados se borran solos al terminar el plazo. Si desinstalas DrivePass, Android borra todos sus datos. Como no tenemos copia, no podemos recuperarlos: haz respaldos.</p>
 
   <h2>Niños</h2>
   <p>DrivePass está pensada para conductores y no está dirigida a menores de edad.</p>
