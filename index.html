@@ -178,6 +178,7 @@
   .js .revelar.r2 { transition-delay: 0.1s; } .js .revelar.r3 { transition-delay: 0.2s; }
 
   /* ---------- 02 El problema ---------- */
+  .problema { overflow-x: clip; }
   .problema .contenedor { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
   .problema h2 { max-width: 15ch; }
   .papeles { position: relative; display: grid; gap: 10px; padding: 8px; }
@@ -276,28 +277,16 @@
   .control .visual { display: flex; flex-direction: column; align-items: center; }
   @media (max-width: 900px) { .control .contenedor { grid-template-columns: 1fr; } }
 
-  /* Maqueta interactiva del Modo control (datos de muestra) */
-  .maqueta { width: min(330px, 84vw); aspect-ratio: 9 / 18.6; background: #0a0f15; border-radius: 46px; padding: 11px; box-shadow: 0 0 0 1px #2b3a4c inset, 0 50px 100px -40px rgba(0, 0, 0, 0.7); }
-  .maqueta .pantalla { height: 100%; border-radius: 36px; background: #F4F6F9; padding: 22px 16px 16px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; color: var(--navy); }
-  .maqueta .cabecera { display: flex; justify-content: space-between; align-items: center; color: var(--texto-2); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  .maqueta .patente-mini { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.04em; }
-  .maqueta .pestanas { display: flex; gap: 6px; }
-  .maqueta .pestanas button { flex: 1; font: 600 0.72rem var(--fuente); padding: 7px 4px; border-radius: 99px; border: 0; background: #E2E7EC; color: var(--texto-2); cursor: pointer; transition: background 0.2s, color 0.2s; }
-  .maqueta .pestanas button:hover { background: #d3dae1; }
-  .maqueta .pestanas button[aria-selected="true"] { background: var(--navy); color: var(--blanco); }
-  .tarjeta-qr { flex: 1; background: var(--blanco); border-radius: 20px; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--linea); touch-action: pan-y; user-select: none; cursor: grab; }
-  .tarjeta-qr .fila { width: 100%; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.85rem; }
-  .tarjeta-qr .qr, .tarjeta-qr .fila, .tarjeta-qr small { transition: opacity 0.18s, transform 0.18s; }
-  .tarjeta-qr.cambiando .qr, .tarjeta-qr.cambiando .fila, .tarjeta-qr.cambiando small { opacity: 0; transform: translateX(var(--dir, 12px)); }
-  .qr { width: 90%; aspect-ratio: 1; display: grid; grid-template-columns: repeat(21, 1fr); padding: 6px; background: var(--blanco); }
-  .qr i { display: block; }
-  .qr i.n { background: #000; }
-  .tarjeta-qr small { font-size: 0.85rem; font-weight: 600; }
-  .tarjeta-qr .ver { width: 100%; text-align: center; font-size: 0.75rem; font-weight: 600; color: var(--navy); background: var(--gris); border-radius: 10px; padding: 9px; }
-  .puntos { display: flex; justify-content: center; gap: 6px; }
-  .puntos i { width: 6px; height: 6px; border-radius: 50%; background: #c3ccd4; transition: background 0.2s, width 0.2s; }
-  .puntos i.activo { background: var(--navy); width: 16px; border-radius: 3px; }
-  .maqueta .pie { text-align: center; color: var(--texto-2); font-size: 0.68rem; }
+  /* Capturas del Modo control con pestañas */
+  .control .telefono { --ancho-tel: min(330px, 80vw); }
+  .control .pantalla { position: relative; background: #101d47; }
+  .control .pantalla img { position: absolute; inset: 0; opacity: 0; transform: translateX(var(--dir, 0)); transition: opacity 0.35s var(--curva), transform 0.35s var(--curva); }
+  .control .pantalla img.activa { opacity: 1; transform: none; }
+  .control .pantalla { touch-action: pan-y; cursor: grab; user-select: none; }
+  .pestanas-control { display: flex; gap: 6px; margin-bottom: 18px; padding: 4px; border-radius: 99px; background: var(--navy-2); border: 1px solid var(--navy-linea); }
+  .pestanas-control button { font: 600 0.9rem var(--fuente); min-height: 40px; padding: 0 16px; border-radius: 99px; border: 0; background: transparent; color: var(--texto-oscuro-2); cursor: pointer; transition: background 0.2s, color 0.2s; }
+  .pestanas-control button:hover { color: var(--blanco); }
+  .pestanas-control button[aria-selected="true"] { background: var(--blanco); color: var(--navy); }
 
   /* ---------- 06 Imprevistos ---------- */
   .imprevistos .contenedor > h2 { max-width: 16ch; }
@@ -644,22 +633,19 @@
         <p class="aviso-legal revelar">DrivePass no es una app oficial: guarda tus documentos y te los muestra. No reemplaza al documento ni garantiza que un fiscalizador lo acepte.</p>
       </div>
       <div class="visual revelar r2">
-        <div class="maqueta" role="group" aria-label="Ejemplo interactivo del Modo control con datos de muestra. Elige un documento para ver su código QR.">
-          <div class="pantalla">
-            <div class="cabecera"><span>Modo control</span><span aria-hidden="true">✕</span></div>
-            <div class="patente-mini"><span class="patente-demo" data-sep="·">DEMO·26</span></div>
-            <div class="pestanas" role="tablist" aria-label="Documentos"><button type="button" role="tab" aria-selected="true" data-i="0">Revisión</button><button type="button" role="tab" aria-selected="false" tabindex="-1" data-i="1">SOAP</button><button type="button" role="tab" aria-selected="false" tabindex="-1" data-i="2">Permiso</button></div>
-            <div class="tarjeta-qr" id="tarjeta-qr" role="tabpanel" aria-live="polite">
-              <div class="fila"><span id="qr-nombre">Revisión técnica</span><span class="insignia" id="qr-estado">Vigente</span></div>
-              <div class="qr" id="qr" aria-hidden="true"></div>
-              <small id="qr-fecha">Vigente hasta 31 mar 2027</small>
-              <span class="ver">Ver documento completo</span>
-            </div>
-            <div class="puntos" aria-hidden="true"><i class="activo"></i><i></i><i></i></div>
-            <div class="pie">Desliza o toca para cambiar de documento</div>
+        <div class="pestanas-control" role="tablist" aria-label="Documentos del Modo control">
+          <button type="button" role="tab" id="tab-revision" aria-controls="pantalla-control" aria-selected="true">Revisión</button>
+          <button type="button" role="tab" id="tab-soap" aria-controls="pantalla-control" aria-selected="false" tabindex="-1">SOAP</button>
+          <button type="button" role="tab" id="tab-permiso" aria-controls="pantalla-control" aria-selected="false" tabindex="-1">Permiso</button>
+        </div>
+        <div class="telefono">
+          <div class="pantalla" id="pantalla-control" role="tabpanel" aria-live="polite">
+            <img class="activa" src="capturas/modo-control-revision.webp" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con la revisión técnica: estado Por vencer, fecha de vencimiento y código QR a pantalla completa.">
+            <img src="capturas/modo-control-soap.webp" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con el SOAP: estado Vigente, aseguradora, póliza, folio y el certificado original recortado.">
+            <img src="capturas/modo-control-permiso.webp" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con el permiso de circulación: estado Vigente, fecha de vencimiento y código QR.">
           </div>
         </div>
-        <p class="pie-captura">Ejemplo interactivo con datos de muestra</p>
+        <p class="pie-captura">Capturas reales con datos de ejemplo</p>
       </div>
     </div>
   </section>
@@ -946,73 +932,29 @@
     });
   })();
 
-  // Maqueta del Modo control: pestañas y deslizamiento entre documentos de ejemplo.
+  // Modo control: pestañas y deslizamiento entre las capturas.
   (function () {
-    var docs = [
-      { nombre: 'Revisión técnica', estado: 'Vigente', clase: '', fecha: 'Vigente hasta 31 mar 2027', semilla: 7 },
-      { nombre: 'SOAP', estado: 'Por vencer', clase: 'vencer', fecha: 'Vence en 14 días', semilla: 41 },
-      { nombre: 'Permiso de circulación', estado: 'Vigente', clase: '', fecha: 'Vigente hasta 31 mar 2027', semilla: 113 }
-    ];
-    var n = 21, actual = 0;
-    var qr = document.getElementById('qr');
-    var tarjeta = document.getElementById('tarjeta-qr');
-    var pestanas = Array.prototype.slice.call(document.querySelectorAll('.pestanas button'));
-    var puntos = Array.prototype.slice.call(document.querySelectorAll('.puntos i'));
-    var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function dibujarQr(semilla) {
-      function azar() { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }
-      function enMarca(x, y) {
-        var marcas = [[0, 0], [14, 0], [0, 14]];
-        for (var i = 0; i < 3; i++) {
-          var mx = marcas[i][0], my = marcas[i][1];
-          if (x >= mx && x < mx + 7 && y >= my && y < my + 7) {
-            var dx = x - mx, dy = y - my;
-            return (dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4)) ? 1 : 0;
-          }
-          if (x >= mx - 1 && x <= mx + 7 && y >= my - 1 && y <= my + 7) return 0;
-        }
-        return -1;
-      }
-      var html = '';
-      for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) {
-        var m = enMarca(x, y);
-        html += (m === -1 ? azar() > 0.52 : m === 1) ? '<i class="n"></i>' : '<i></i>';
-      }
-      qr.innerHTML = html;
-    }
-
-    function pintar(i) {
-      var d = docs[i];
-      document.getElementById('qr-nombre').textContent = d.nombre;
-      var estado = document.getElementById('qr-estado');
-      estado.textContent = d.estado;
-      estado.className = 'insignia' + (d.clase ? ' ' + d.clase : '');
-      document.getElementById('qr-fecha').textContent = d.fecha;
-      dibujarQr(d.semilla);
+    var pestanas = Array.prototype.slice.call(document.querySelectorAll('.pestanas-control button'));
+    var pantalla = document.getElementById('pantalla-control');
+    var imagenes = Array.prototype.slice.call(pantalla.querySelectorAll('img'));
+    var actual = 0;
+    function ir(i, foco) {
+      i = (i + imagenes.length) % imagenes.length;
+      if (i === actual) return;
+      var dir = i > actual ? '24px' : '-24px';
+      imagenes.forEach(function (img, k) {
+        img.style.setProperty('--dir', k === i ? dir : '0px');
+        img.classList.toggle('activa', k === i);
+      });
       pestanas.forEach(function (b, k) {
         b.setAttribute('aria-selected', k === i ? 'true' : 'false');
         b.tabIndex = k === i ? 0 : -1;
       });
-      puntos.forEach(function (p, k) { p.classList.toggle('activo', k === i); });
-    }
-
-    function ir(i, foco) {
-      i = (i + docs.length) % docs.length;
-      if (i === actual) return;
-      var adelante = i > actual;
-      actual = i;
+      pantalla.setAttribute('aria-labelledby', pestanas[i].id);
       if (foco) pestanas[i].focus();
-      if (reducido) { pintar(i); return; }
-      tarjeta.style.setProperty('--dir', adelante ? '-14px' : '14px');
-      tarjeta.classList.add('cambiando');
-      setTimeout(function () {
-        pintar(i);
-        tarjeta.style.setProperty('--dir', adelante ? '14px' : '-14px');
-        requestAnimationFrame(function () { tarjeta.classList.remove('cambiando'); });
-      }, 180);
+      actual = i;
     }
-
+    pantalla.setAttribute('aria-labelledby', pestanas[0].id);
     pestanas.forEach(function (b, k) {
       b.addEventListener('click', function () { ir(k); });
       b.addEventListener('keydown', function (e) {
@@ -1020,10 +962,8 @@
         if (e.key === 'ArrowLeft') { e.preventDefault(); ir(actual - 1, true); }
       });
     });
-
-    // Deslizar con el dedo o arrastrar con el mouse.
     var inicioX = null;
-    tarjeta.addEventListener('pointerdown', function (e) { inicioX = e.clientX; });
+    pantalla.addEventListener('pointerdown', function (e) { inicioX = e.clientX; });
     window.addEventListener('pointerup', function (e) {
       if (inicioX === null) return;
       var dx = e.clientX - inicioX;
@@ -1031,8 +971,6 @@
       if (Math.abs(dx) > 40) ir(actual + (dx < 0 ? 1 : -1));
     });
     window.addEventListener('pointercancel', function () { inicioX = null; });
-
-    pintar(0);
   })();
 </script>
 </body>
