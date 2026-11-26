@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xGSYiWAtXpbsSRoE8J/HzAYsMLW3q2seViVI+hrT59o='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DrivePass: documentos del vehículo en tu teléfono, sin internet | Chile</title>
+<title>DrivePass: documentos de tu vehículo, sin internet</title>
 <meta name="description" content="Permiso de circulación, SOAP, revisión técnica y padrón en tu Android, con avisos de vencimiento, Modo control con QR e historial de mantenciones. Sin cuenta, sin servidores y sin internet. Gratis.">
 <meta name="theme-color" content="#101923">
 <meta name="robots" content="index, follow">
@@ -111,10 +111,11 @@
   .boton-texto:hover .icono { transform: translateY(3px); }
 
   /* ---------- Navegación ---------- */
-  .nav { position: sticky; top: 0; z-index: 20; background: rgba(16, 25, 35, 0.86); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); border-bottom: 1px solid rgba(255, 255, 255, 0.06); color: var(--blanco); }
+  .nav { position: sticky; top: 0; z-index: 20; background: var(--navy); border-bottom: 1px solid rgba(255, 255, 255, 0.06); color: var(--blanco); }
   .nav .contenedor { display: flex; align-items: center; gap: 28px; min-height: 64px; }
   .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
-  .marca img { width: 32px; height: 32px; }
+  .marca img { width: auto; height: 34px; }
+  .marca-pie img { height: 96px; }
   .nav ul { display: flex; gap: 26px; margin-left: auto; }
   .nav ul a { color: var(--texto-oscuro-2); text-decoration: none; font-size: 0.93rem; font-weight: 500; transition: color 0.2s; }
   .nav ul a:hover { color: var(--blanco); }
@@ -155,6 +156,8 @@
   .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 32px; }
   .detalle-version { margin-top: 18px; font-size: 0.9rem; color: var(--texto-oscuro-2); }
   .hero-visual { position: relative; display: flex; justify-content: center; }
+  .hero-visual .telefono:not(.tel-atras) .pantalla { background: #F4F5FA; }
+  .hero-visual .telefono:not(.tel-atras) .pantalla img { object-fit: contain; object-position: top; }
   .hero-visual .telefono { --ancho-tel: min(380px, 78vw); margin-bottom: -110px; z-index: 1; }
   .hero-visual .tel-atras { position: absolute; --ancho-tel: 300px; left: calc(50% + 24px); bottom: -40px; transform: rotate(6deg); transform-origin: bottom left; opacity: 0.55; z-index: 0; animation: subir 1s 0.5s var(--curva) both; }
   @media (max-width: 1100px) { .hero-visual .tel-atras { display: none; } }
@@ -550,8 +553,7 @@
 <header class="nav" id="nav">
   <div class="contenedor">
     <a class="marca" href="#" aria-label="DrivePass, inicio">
-      <img src="simbolo-oscuro-64.png" alt="" width="30" height="30">
-      <span>DrivePass</span>
+      <img src="logo-encabezado.png" alt="" width="169" height="34">
     </a>
     <ul id="menu">
       <li><a href="#funciones">Funciones</a></li>
@@ -584,14 +586,14 @@
           <li><svg class="icono" aria-hidden="true"><use href="#i-usuario-off"/></svg>Sin cuentas</li>
           <li><svg class="icono" aria-hidden="true"><use href="#i-servidor-off"/></svg>Sin servidores</li>
         </ul>
-        <p class="detalle-version entra d4">Versión <span data-release="version">1.23.0</span> del <span data-release="fecha">25 nov 2026</span>. Gratis, para Android 7 o superior.</p>
+        <p class="detalle-version entra d4">Versión <span data-release="version">1.24.1</span> del <span data-release="fecha">26 nov 2026</span>. Gratis, para Android 7 o superior.</p>
       </div>
       <div class="hero-visual">
         <div class="telefono tel-atras" aria-hidden="true">
           <div class="pantalla"><img src="capturas/modo-control-revision.webp" srcset="capturas/modo-control-revision-360.webp 360w, capturas/modo-control-revision.webp 720w" sizes="(max-width: 500px) 80vw, 360px" width="720" height="1507" alt="" loading="lazy"></div>
         </div>
         <div class="telefono">
-          <div class="pantalla"><img src="capturas/inicio.webp" srcset="capturas/inicio-360.webp 360w, capturas/inicio.webp 720w" sizes="(max-width: 500px) 78vw, 380px" width="720" height="1620" alt="Pantalla de inicio de DrivePass con la ilustración del vehículo, el botón Modo control y la lista de documentos del vehículo." fetchpriority="high"></div>
+          <div class="pantalla"><img src="capturas/inicio.webp" srcset="capturas/inicio-360.webp 360w, capturas/inicio.webp 720w" sizes="(max-width: 500px) 78vw, 380px" width="720" height="1331" alt="Pantalla de inicio de DrivePass con la patente de ejemplo DEMO, la ilustración del vehículo, el resumen de documentos, el botón Modo control, una hora agendada y la lista de documentos con sus vencimientos." fetchpriority="high"></div>
         </div>
         <div class="flotante f1" aria-hidden="true"><svg class="icono"><use href="#i-campana"/></svg><div>Avisos de vencimiento<small>30, 15, 7 y 1 día antes</small></div></div>
         <div class="flotante f2" aria-hidden="true"><svg class="icono"><use href="#i-escudo"/></svg><div>Modo control<small>con el QR oficial</small></div></div>
@@ -618,7 +620,7 @@
         <span class="flecha-cambio revelar r2" aria-hidden="true"><svg class="icono"><use href="#i-flecha"/></svg></span>
         <div class="columna despues revelar r3">
           <h3>En DrivePass</h3>
-          <div class="papeles" aria-label="Los mismos documentos ordenados en DrivePass">
+          <div class="papeles" role="group" aria-label="Los mismos documentos ordenados en DrivePass">
             <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-paraguas"/></svg></span><div><b>SOAP</b><span class="sub">Vence el 31 mar 2027</span></div><span class="insignia">Vigente</span></div>
             <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-recibo"/></svg></span><div><b>Permiso de circulación</b><span class="sub">Vence el 31 mar 2027</span></div><span class="insignia">Vigente</span></div>
             <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-portapapeles"/></svg></span><div><b>Revisión técnica</b><span class="sub">Vence en 12 días</span></div><span class="insignia vencer">Por vencer</span></div>
@@ -640,13 +642,13 @@
           <span class="grupo">Vehículos</span>
           <h3>Todos tus vehículos, cada uno con lo suyo</h3>
           <p>Su patente, su ilustración, sus documentos y su historial. Marca, modelo, año, color, VIN y motor si quieres.</p>
-          <div class="placa" aria-label="Patente de ejemplo"><b class="patente-demo" data-sep="·">DEMO·26</b><small>CHILE</small></div>
+          <div class="placa" role="img" aria-label="Patente de ejemplo"><b class="patente-demo" data-sep="·">DEMO·26</b><small>CHILE</small></div>
           <ul class="tipos" aria-label="Tipos de vehículo">
             <li>Auto</li><li>Camioneta</li><li>Moto</li><li>Furgón</li><li>Camión</li><li>Bus</li><li>Casa rodante</li><li>Remolque</li><li>Maquinaria</li>
           </ul>
           <div class="temas-linea">
-            <p>Tema según la hora, o el que elijas:</p>
-            <div class="franjas" aria-hidden="true"><span style="background:#EAF1F8;color:#28405e">Día</span><span style="background:#3a2559;color:#f3c99b">Tarde</span><span style="background:#232f45;color:#c8d6ee">Noche</span></div>
+            <p>Tema según la hora (Claro, Atardecer y Nocturno), o el que elijas:</p>
+            <div class="franjas" aria-hidden="true"><span style="background:#EAF1F8;color:#28405e">Claro</span><span style="background:#3a2559;color:#f3c99b">Atardecer</span><span style="background:#232f45;color:#c8d6ee">Nocturno</span></div>
           </div>
         </article>
         <article class="pieza calendario revelar r2">
@@ -662,7 +664,7 @@
           <span class="grupo">Alertas</span>
           <h3>Avisos antes de que venza</h3>
           <p>Programados en el mismo teléfono. La licencia avisa también 60 días antes.</p>
-          <div class="dias" aria-label="Días de anticipación: 30, 15, 7 y 1 día antes, y el mismo día"><span>30</span><span>15</span><span>7</span><span>1</span><span>Hoy</span></div>
+          <p class="solo-lector">Avisa 30, 15, 7 y 1 día antes, y el mismo día.</p><div class="dias" aria-hidden="true"><span>30</span><span>15</span><span>7</span><span>1</span><span>Hoy</span></div>
           <p class="widget-linea"><svg class="icono" aria-hidden="true"><use href="#i-widget"/></svg><span><b>Widget:</b> el estado de tus documentos en la pantalla de inicio. Con tu huella abre el Modo control.</span></p>
         </article>
         <article class="pieza lectura revelar">
@@ -772,7 +774,7 @@
         <article class="caso prestar revelar r2">
           <h3><svg class="icono" aria-hidden="true"><use href="#i-usuarios"/></svg>Prestar el vehículo</h3>
           <p>Envía a otro teléfono un archivo cifrado con el padrón, SOAP, permiso y revisión técnica. Se abre con un QR y se borra solo al terminar el plazo.</p>
-          <div class="plazos" aria-label="Plazos de préstamo"><span>1 día</span><span>1 semana</span><span>1 mes</span></div>
+          <p class="solo-lector">Plazos de préstamo: 1 día, 1 semana o 1 mes.</p><div class="plazos" aria-hidden="true"><span>1 día</span><span>1 semana</span><span>1 mes</span></div>
           <p class="resultado"><svg class="icono" aria-hidden="true"><use href="#i-candado"/></svg>No viajan la licencia, la cédula, las mantenciones ni los costos.</p>
         </article>
       </div>
@@ -795,7 +797,7 @@
           <li class="hito">
             <time datetime="2026-03-12">12 mar 2026 · 85.400 km</time>
             <b>Aceite de motor y filtros</b>
-            <ul class="detalle-hito" aria-label="Detalle">
+            <ul class="detalle-hito">
               <li><svg class="icono" aria-hidden="true"><use href="#i-llave"/></svg>Taller de ejemplo</li>
               <li>3 trabajos</li>
               <li>$68.000</li>
@@ -805,7 +807,7 @@
           <li class="hito">
             <time datetime="2025-10-20">20 oct 2025 · 78.100 km</time>
             <b>Pastillas de freno delanteras</b>
-            <ul class="detalle-hito" aria-label="Detalle">
+            <ul class="detalle-hito">
               <li><svg class="icono" aria-hidden="true"><use href="#i-llave"/></svg>Taller de ejemplo</li>
               <li>1 trabajo</li>
               <li>$45.000</li>
@@ -839,7 +841,7 @@
       </div>
 
       <ul class="garantias">
-        <li class="revelar"><svg class="icono" aria-hidden="true"><use href="#i-wifi-off"/></svg><h3>Sin Internet</h3><p>La app no tiene permiso de conexión. No es una promesa: lo impone Android.</p></li>
+        <li class="revelar"><svg class="icono" aria-hidden="true"><use href="#i-wifi-off"/></svg><h3>Sin internet</h3><p>La app no tiene permiso de conexión. No es una promesa: lo impone Android.</p></li>
         <li class="revelar r2"><svg class="icono" aria-hidden="true"><use href="#i-usuario-off"/></svg><h3>Sin cuentas</h3><p>No pide correo, teléfono ni contraseña.</p></li>
         <li class="revelar r3"><svg class="icono" aria-hidden="true"><use href="#i-candado"/></svg><h3>Cifrado</h3><p>La base de datos del teléfono está cifrada.</p></li>
         <li class="revelar"><svg class="icono" aria-hidden="true"><use href="#i-servidor-off"/></svg><h3>Sin servidores</h3><p>No existe una base central con las patentes, RUT o pólizas de quienes la usan.</p></li>
@@ -878,7 +880,7 @@
       <span class="etiqueta revelar">Cómo funciona</span>
       <h2 class="revelar">Tres pasos y listo.</h2>
       <ol class="pasos-uso">
-        <li class="revelar"><span class="n">01</span><h3>Registra tu vehículo.</h3><p>Nombre, tipo y patente. Marca, modelo, VIN y motor si quieres.</p></li>
+        <li class="revelar"><span class="n">01</span><h3>Registra tu vehículo.</h3><p>Nombre, tipo y patente. Marca, modelo, año, color, VIN y motor si quieres.</p></li>
         <li class="revelar r2"><span class="n">02</span><h3>Organiza tus documentos.</h3><p>Foto, escáner o PDF. DrivePass propone la fecha y tú la confirmas.</p></li>
         <li class="revelar r3"><span class="n">03</span><h3>Consulta cuando la necesites.</h3><p>Modo control en un toque y avisos antes de cada vencimiento.</p></li>
       </ol>
@@ -903,28 +905,28 @@
         <div class="caja-descarga">
           <div class="cabeza">
             <h3>DrivePass para Android</h3>
-            <div class="placa version" aria-hidden="true"><b data-release="placa">V1·23·0</b><small>CHILE</small></div>
+            <div class="placa version" aria-hidden="true"><b data-release="placa">V1·24·1</b><small>CHILE</small></div>
           </div>
           <dl class="ficha-apk">
-            <dt>Versión</dt><dd data-release="version">1.23.0</dd>
-            <dt>Publicada</dt><dd data-release="fecha">25 nov 2026</dd>
-            <dt>Tamaño</dt><dd><span data-release="tamano">66 MB</span> (APK)</dd>
+            <dt>Versión</dt><dd data-release="version">1.24.1</dd>
+            <dt>Publicada</dt><dd data-release="fecha">26 nov 2026</dd>
+            <dt>Tamaño</dt><dd><span data-release="tamano">67 MB</span> (APK)</dd>
             <dt>Compatibilidad</dt><dd>Android 7.0 o superior, procesador ARM de 64 bits</dd>
             <dt>Precio</dt><dd>Gratis, sin anuncios</dd>
           </dl>
           <p class="aviso-ios" id="aviso-ios" hidden><b>Estás en un iPhone o iPad.</b> DrivePass es solo para Android por ahora. Abre esta página en un teléfono Android para instalarla.</p>
-          <a class="boton boton-principal" data-release-href="apk" href="https://github.com/DiceaDev/drivepass/releases/download/v1.23.0/DrivePass-1.23.0.apk"><svg class="icono" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar APK</a>
+          <a class="boton boton-principal" data-release-href="apk" href="https://github.com/DiceaDev/drivepass/releases/download/v1.24.1/DrivePass-1.24.1.apk"><svg class="icono" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar APK</a>
           <details class="verificacion">
             <summary>Verificación del archivo <span>(opcional)</span></summary>
             <div class="verificacion-cuerpo">
               <p class="verificacion-intro">No es necesaria para instalar. Sirve para comprobar que el APK es el original publicado aquí.</p>
               <div class="huella">
                 <div class="titulo"><span id="titulo-huella">Huella SHA-256 del APK</span><button class="copiar" type="button" id="copiar-huella" aria-describedby="titulo-huella">Copiar</button></div>
-                <code id="dato-huella" data-release="huella">e25be57b1bb18f1df3f1de8f4eea7525f9f5c80daa95c14c550a68360401efcc</code>
+                <code id="dato-huella" data-release="huella">a0bae9b34097244e3b0abd95c006d9a9669d00238485429c6cc186244927af44</code>
                 <p class="estado-copia" id="estado-copia" role="status" aria-live="polite"></p>
                 <details class="verificar">
                   <summary>¿Cómo la compruebo?</summary>
-                  <p>Es la huella que GitHub calcula del archivo publicado. En un computador, compárala con la salida de <code>sha256sum DrivePass-<span data-release="version">1.23.0</span>.apk</code> (Linux o macOS) o <code>certutil -hashfile DrivePass-<span data-release="version">1.23.0</span>.apk SHA256</code> (Windows). Si no coinciden, no instales el archivo.</p>
+                  <p>Es la huella que GitHub calcula del archivo publicado. En un computador, compárala con la salida de <code>sha256sum DrivePass-<span data-release="version">1.24.1</span>.apk</code> (Linux), <code>shasum -a 256 DrivePass-<span data-release="version">1.24.1</span>.apk</code> (macOS) o <code>certutil -hashfile DrivePass-<span data-release="version">1.24.1</span>.apk SHA256</code> (Windows). Si no coinciden, no instales el archivo.</p>
                 </details>
               </div>
               <div class="huella firma">
@@ -932,18 +934,18 @@
                 <code data-release="certificado">E8:BE:4C:84:8C:6D:46:57:AC:65:57:00:84:27:26:E5:F1:2D:81:3C:7C:26:DA:B7:E0:3F:09:6B:59:3D:48:51</code>
                 <details class="verificar">
                   <summary>¿Para qué sirve?</summary>
-                  <p>La huella del archivo cambia en cada versión; la del certificado no. Identifica a quien firma DrivePass (DiceaDev, Chile) y es la misma en todas las versiones. Android no instala una actualización firmada con otro certificado. Para revisarla en un computador: <code>apksigner verify --print-certs DrivePass-<span data-release="version">1.23.0</span>.apk</code>.</p>
+                  <p>La huella del archivo cambia en cada versión; la del certificado no. Identifica a quien firma DrivePass (DiceaDev, Chile) y es la misma en todas las versiones. Android no instala una actualización firmada con otro certificado. Para revisarla en un computador: <code>apksigner verify --print-certs DrivePass-<span data-release="version">1.24.1</span>.apk</code>.</p>
                 </details>
               </div>
             </div>
           </details>
           <div class="enlaces-descarga">
-            <a data-release-href="notas" href="https://github.com/DiceaDev/drivepass/releases/tag/v1.23.0">Novedades de esta versión</a>
+            <a data-release-href="notas" href="https://github.com/DiceaDev/drivepass/releases/tag/v1.24.1">Novedades de esta versión</a>
             <a href="https://github.com/DiceaDev/drivepass/releases">Todas las versiones en GitHub</a>
           </div>
         </div>
         <div class="nota-legal">
-          <p><b>Antes de dejar los papeles en la casa.</b> En 2013 Contraloría confirmó que el permiso de circulación y el SOAP se pueden mostrar en formato digital, y Carabineros acepta también así la revisión técnica: los tres traen un QR oficial que el fiscalizador puede verificar. DrivePass no es una app oficial y no reemplaza esos documentos.</p>
+          <p><b>Antes de dejar los papeles en la casa.</b> En 2013 Contraloría confirmó que el permiso de circulación y el SOAP se pueden mostrar en formato digital, siempre que el documento electrónico tenga firma electrónica avanzada. Carabineros dice que el formato digital se acepta, pero recomienda llevar también los documentos físicos. DrivePass no es una app oficial y no reemplaza esos documentos.</p>
           <p class="fuentes-legales">Fuentes: <a href="https://www.eldinamo.cl/tech/2013/11/22/contraloria-autoriza-a-conductores-a-mostrar-permiso-de-circulacion-a-traves-de-moviles/" rel="noopener">El Dínamo, 2013</a> · <a href="https://www.24horas.cl/te-sirve/permiso-de-circulacion-2025-documento-impreso-digital" rel="noopener">24 Horas, 2025</a>. La licencia de conducir solo vale en digital desde la app oficial de CONASET.</p>
           <p>Las reglas pueden cambiar y cada fiscalizador decide. Si tienes dudas, lleva también los documentos físicos. DrivePass es un proyecto personal: úsalo con criterio, haz respaldos y descárgalo solo desde esta página.</p>
         </div>
@@ -980,7 +982,7 @@
   <div class="contenedor">
     <div class="arriba">
       <div>
-        <a class="marca" href="#" aria-label="DrivePass, inicio"><img src="simbolo-oscuro-64.png" alt="" width="30" height="30" loading="lazy"><span>DrivePass</span></a>
+        <a class="marca marca-pie" href="#" aria-label="DrivePass, inicio"><img src="logo-apilado.png" alt="" width="148" height="96" loading="lazy"></a>
         <p>Los documentos, vencimientos y mantenciones de tu vehículo, en tu teléfono. Sin internet, sin cuentas y sin servidores.</p>
       </div>
       <div>

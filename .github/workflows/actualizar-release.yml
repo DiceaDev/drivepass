@@ -21,7 +21,10 @@ jobs:
   actualizar:
     runs-on: ubuntu-latest
     steps:
+      # Al publicarse una release, GitHub se ubica en la etiqueta de esa versión; hay que trabajar sobre main para poder guardar.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:

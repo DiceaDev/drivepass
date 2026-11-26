@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es-CL">
 <head>
 <meta charset="utf-8">
@@ -30,7 +30,7 @@
   a:focus-visible { outline: 3px solid var(--azul-texto); outline-offset: 3px; border-radius: 4px; }
   .barra { background: var(--marino); }
   .barra .contenido { display: flex; align-items: center; gap: 12px; padding-block: 14px; }
-  .barra img { width: 36px; height: 36px; border-radius: 9px; background: var(--blanco); }
+  .barra img { width: auto; height: 34px; display: block; }
   .barra a { color: var(--blanco); text-decoration: none; font-family: var(--titulo); font-weight: 800; font-size: 1.15rem; }
   .contenido { width: min(760px, 100% - 40px); margin-inline: auto; }
   main { padding-block: 48px 72px; }
@@ -56,8 +56,7 @@
 
 <header class="barra">
   <div class="contenido">
-    <img src="favicon-32.png" alt="" width="36" height="36">
-    <a href="./">DrivePass</a>
+    <a href="./" aria-label="DrivePass, inicio"><img src="logo-encabezado.png" alt="" width="169" height="34"></a>
   </div>
 </header>
 
@@ -108,12 +107,14 @@
   <h2>Permisos que pide</h2>
   <div class="tabla">
     <table>
-      <tr><th>Permiso</th><th>Para qué se usa</th></tr>
+      <thead><tr><th scope="col">Permiso</th><th scope="col">Para qué se usa</th></tr></thead>
+      <tbody>
       <tr><td>Cámara</td><td>Escanear documentos, leer sus códigos QR y fotografiar un accidente. Solo cuando tú lo eliges.</td></tr>
       <tr><td>Ubicación</td><td>Anotar dónde ocurrió un accidente, si lo permites. Solo con la app abierta.</td></tr>
       <tr><td>Huella, rostro o PIN</td><td>Abrir la app y proteger tus documentos. La verificación la hace el sistema; DrivePass no recibe tu huella.</td></tr>
       <tr><td>Notificaciones</td><td>Avisarte antes de que venza un documento o una hora agendada. Los avisos no muestran datos personales con el teléfono bloqueado.</td></tr>
       <tr><td>Fotos y archivos</td><td>Importar la imagen o el PDF de un documento que elijas. La app solo ve el archivo que seleccionas.</td></tr>
+      </tbody>
     </table>
   </div>
 
