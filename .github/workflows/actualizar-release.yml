@@ -1,0 +1,48 @@
+# Escribe en la web la versión, fecha, tamaño, huella SHA-256 y enlaces de la última release,
+# después de comprobar que el APK publicado tiene ese SHA-256 y la firma de DrivePass.
+# Corre al publicarse una release, una vez al día por si acaso, y a mano.
+name: Actualizar datos de descarga
+
+on:
+  release:
+    types: [published]
+  schedule:
+    - cron: '17 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-release
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Leer la última release y escribir los datos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/actualizar-release.py
+
+      - name: Revisar que la CSP calce con los scripts de la página
+        run: python3 scripts/revisar-csp.py
+
+      - name: Guardar si cambió algo
+        run: |
+          if git diff --quiet -- index.html release.json; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add index.html release.json
+          git commit -m "web: datos de descarga de la versión $(python3 -c "import json;print(json.load(open('release.json'))['version'])")"
+          git push

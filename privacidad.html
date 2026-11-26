@@ -2,26 +2,27 @@
 <html lang="es-CL">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Política de privacidad — DrivePass</title>
 <meta name="description" content="Qué datos usa DrivePass, dónde se guardan y qué permisos pide. La app no tiene cuenta, ni servidores, ni permiso de internet.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,600..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://diceadev.github.io/drivepass/privacidad.html">
+<link rel="preload" href="fuentes/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("fuentes/inter-latin.woff2") format("woff2"); }
   :root {
-    --marino: #0B1F4B;
-    --azul-texto: #1A5BD0;
-    --papel: #EEF2F8;
+    --marino: #101923;
+    --azul-texto: #155E52;
+    --papel: #F5F7F8;
     --blanco: #FFFFFF;
     --linea: #D3DCEA;
     --texto: #0B1F4B;
     --texto-2: #46546F;
-    --titulo: "Archivo", "Arial Narrow", system-ui, sans-serif;
-    --cuerpo: "Atkinson Hyperlegible", system-ui, sans-serif;
+    --titulo: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --cuerpo: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: var(--cuerpo); font-size: 1.0625rem; line-height: 1.65; color: var(--texto); background: var(--papel); }
@@ -30,10 +31,10 @@
   .barra { background: var(--marino); }
   .barra .contenido { display: flex; align-items: center; gap: 12px; padding-block: 14px; }
   .barra img { width: 36px; height: 36px; border-radius: 9px; background: var(--blanco); }
-  .barra a { color: var(--blanco); text-decoration: none; font-family: var(--titulo); font-weight: 800; font-stretch: 115%; font-size: 1.15rem; }
+  .barra a { color: var(--blanco); text-decoration: none; font-family: var(--titulo); font-weight: 800; font-size: 1.15rem; }
   .contenido { width: min(760px, 100% - 40px); margin-inline: auto; }
   main { padding-block: 48px 72px; }
-  h1, h2 { font-family: var(--titulo); font-stretch: 115%; line-height: 1.1; margin: 0; }
+  h1, h2 { font-family: var(--titulo); line-height: 1.1; margin: 0; }
   h1 { font-size: clamp(2rem, 5vw, 2.8rem); }
   h2 { font-size: 1.35rem; margin-top: 40px; margin-bottom: 8px; }
   .fecha { color: var(--texto-2); margin-top: 8px; }
@@ -62,7 +63,7 @@
 
 <main class="contenido">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Vigente desde el 22 de noviembre de 2026 (versión anterior: 17 de noviembre de 2026).</p>
+  <p class="fecha">Vigente desde el 25 de noviembre de 2026 (versión anterior: 22 de noviembre de 2026).</p>
 
   <div class="resumen">
     <strong>En resumen</strong>
@@ -137,6 +138,9 @@
 
   <h2>Cambios a esta política</h2>
   <p>Si la app cambia su forma de tratar datos, actualizaremos esta página y la fecha de vigencia antes de publicar la versión con el cambio.</p>
+
+  <h2>Esta página web</h2>
+  <p>La página de descarga de DrivePass no usa cookies, analítica ni herramientas de seguimiento, y no carga nada desde otros sitios: las fuentes, las imágenes y los datos de la versión se sirven desde el mismo sitio. La página está alojada en GitHub Pages y los archivos APK se descargan desde GitHub; GitHub, como cualquier servicio de alojamiento, recibe los datos técnicos de la conexión (como la dirección IP) y los trata según su propia política de privacidad.</p>
 
   <h2>Contacto</h2>
   <p>Si tienes preguntas sobre privacidad, escríbenos abriendo un reporte en <a href="https://github.com/DiceaDev/drivepass/issues">github.com/DiceaDev/drivepass/issues</a>. No incluyas datos personales ni fotos de tus documentos en el reporte.</p>

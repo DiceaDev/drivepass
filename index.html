@@ -2,10 +2,12 @@
 <html lang="es-CL">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xGSYiWAtXpbsSRoE8J/HzAYsMLW3q2seViVI+hrT59o='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DrivePass: documentos del vehículo en tu teléfono, sin internet | Chile</title>
 <meta name="description" content="Permiso de circulación, SOAP, revisión técnica y padrón en tu Android, con avisos de vencimiento, Modo control con QR e historial de mantenciones. Sin cuenta, sin servidores y sin internet. Gratis.">
 <meta name="theme-color" content="#101923">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://diceadev.github.io/drivepass/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CL">
@@ -13,19 +15,20 @@
 <meta property="og:url" content="https://diceadev.github.io/drivepass/">
 <meta property="og:title" content="DrivePass: todo lo de tu vehículo, sin buscar nada">
 <meta property="og:description" content="Documentos, vencimientos y mantenciones de tu vehículo en tu teléfono. Sin internet, sin cuentas y sin servidores.">
-<meta property="og:image" content="https://diceadev.github.io/drivepass/logo.png">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://diceadev.github.io/drivepass/og-imagen.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DrivePass: todo lo de tu vehículo, sin buscar nada. Captura del Modo control con datos de ejemplo.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DrivePass: todo lo de tu vehículo, sin buscar nada">
 <meta name="twitter:description" content="Documentos, vencimientos y mantenciones de tu vehículo en tu teléfono. Sin internet, sin cuentas y sin servidores.">
-<meta name="twitter:image" content="https://diceadev.github.io/drivepass/logo.png">
+<meta name="twitter:image" content="https://diceadev.github.io/drivepass/og-imagen.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icono-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="capturas/inicio.webp" type="image/webp">
+<link rel="preload" href="fuentes/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="capturas/inicio.webp" imagesrcset="capturas/inicio-360.webp 360w, capturas/inicio.webp 720w" imagesizes="(max-width: 500px) 78vw, 380px" type="image/webp">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,10 +42,14 @@
   "downloadUrl": "https://github.com/DiceaDev/drivepass/releases/latest",
   "image": "https://diceadev.github.io/drivepass/logo.png",
   "screenshot": "https://diceadev.github.io/drivepass/capturas/inicio.webp",
+  "softwareRequirements": "Android 7.0 o superior, ARM de 64 bits",
+  "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
 }
 </script>
 <style>
+  /* Inter (SIL Open Font License, ver fuentes/LICENCIA-Inter.txt), servida desde este mismo sitio. */
+  @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("fuentes/inter-latin.woff2") format("woff2"); }
   :root {
     --navy: #101923;
     --navy-2: #172331;
@@ -137,18 +144,21 @@
   /* ---------- 01 Hero ---------- */
   .hero { position: relative; overflow: hidden; padding-block: clamp(56px, 8vw, 104px) 0; }
   .hero::before { content: ""; position: absolute; inset: auto -20% -30% -20%; height: 75%; background: radial-gradient(50% 50% at 50% 50%, rgba(21, 94, 82, 0.55), transparent 70%); pointer-events: none; }
-  .hero .contenedor { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 6vw, 72px); align-items: end; }
-  .hero-texto { padding-bottom: clamp(56px, 8vw, 120px); }
+  .hero .contenedor { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 64px); align-items: end; }
+  .hero-texto { padding-bottom: clamp(56px, 9vw, 136px); }
   .hero h1 { font-size: clamp(2.7rem, 7vw, 5.4rem); font-weight: 800; letter-spacing: -0.045em; line-height: 0.98; max-width: 12ch; }
   .hero h1 span { color: var(--menta); }
   .hero .bajada { font-size: clamp(1.1rem, 1.8vw, 1.3rem); max-width: 40ch; }
-  .confianza { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .confianza { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
   .confianza li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px 7px 10px; border-radius: 99px; border: 1px solid rgba(127, 209, 189, 0.3); color: #d6efe8; font-size: 0.9rem; font-weight: 500; }
   .confianza .icono { width: 18px; height: 18px; color: var(--menta); }
   .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 32px; }
   .detalle-version { margin-top: 18px; font-size: 0.9rem; color: var(--texto-oscuro-2); }
   .hero-visual { position: relative; display: flex; justify-content: center; }
-  .hero-visual .telefono { --ancho-tel: min(340px, 78vw); margin-bottom: -96px; }
+  .hero-visual .telefono { --ancho-tel: min(380px, 78vw); margin-bottom: -110px; z-index: 1; }
+  .hero-visual .tel-atras { position: absolute; --ancho-tel: 300px; left: calc(50% + 24px); bottom: -40px; transform: rotate(6deg); transform-origin: bottom left; opacity: 0.55; z-index: 0; animation: subir 1s 0.5s var(--curva) both; }
+  @media (max-width: 1100px) { .hero-visual .tel-atras { display: none; } }
+  .hero .boton-principal { min-height: 56px; padding: 0 28px; font-size: 1.05rem; box-shadow: 0 10px 30px -12px rgba(127, 209, 189, 0.55); }
   .flotante { position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px; background: rgba(23, 35, 49, 0.88); border: 1px solid var(--navy-linea); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font-size: 0.85rem; color: var(--blanco); white-space: nowrap; }
   .flotante small { display: block; color: var(--texto-oscuro-2); font-size: 0.75rem; }
   .flotante .icono { color: var(--menta); }
@@ -161,7 +171,8 @@
     .flotante.f1 { left: 0; top: 16%; }
     .flotante.f2 { right: 0; top: 46%; }
   }
-  @media (max-width: 420px) { .flotante { font-size: 0.78rem; padding: 8px 10px; } .flotante small { display: none; } }
+  .flotante { z-index: 2; }
+  @media (max-width: 600px) { .flotante { display: none; } }
 
   /* Entrada del hero */
   @keyframes subir { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
@@ -178,29 +189,30 @@
   .js .revelar.r2 { transition-delay: 0.1s; } .js .revelar.r3 { transition-delay: 0.2s; }
 
   /* ---------- 02 El problema ---------- */
-  .problema { overflow-x: clip; }
-  .problema .contenedor { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
-  .problema h2 { max-width: 15ch; }
-  .papeles { position: relative; display: grid; gap: 10px; padding: 8px; }
-  .papel { display: flex; align-items: center; gap: 14px; background: var(--blanco); border: 1px solid var(--linea); border-radius: 16px; padding: 14px 16px; transition: transform 0.9s var(--curva), box-shadow 0.9s, border-color 0.9s; }
-  .papel .ic { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: var(--gris); color: var(--texto-2); flex: none; transition: background 0.9s, color 0.9s; }
-  .papel b { display: block; font-weight: 600; font-size: 0.98rem; }
-  .papel .viejo { font-size: 0.85rem; color: var(--texto-2); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .papel .nuevo { display: none; font-size: 0.85rem; color: var(--texto-2); }
-  .papel .insignia { margin-left: auto; opacity: 0; transition: opacity 0.6s 0.5s; }
-  .js .papeles:not(.ordenados) .papel:nth-child(1) { transform: translate(-6%, 8px) rotate(-5deg); }
-  .js .papeles:not(.ordenados) .papel:nth-child(2) { transform: translate(9%, -2px) rotate(3.5deg); }
-  .js .papeles:not(.ordenados) .papel:nth-child(3) { transform: translate(-3%, -6px) rotate(-2deg); }
-  .js .papeles:not(.ordenados) .papel:nth-child(4) { transform: translate(6%, -10px) rotate(4deg); }
-  .papeles.ordenados .papel { box-shadow: 0 10px 30px -24px rgba(16, 25, 35, 0.5); }
-  .papeles.ordenados .papel .ic { background: var(--verde-suave); color: var(--petroleo); }
-  .papeles.ordenados .papel .viejo { display: none; }
-  .papeles.ordenados .papel .nuevo { display: block; }
-  .papeles.ordenados .papel .insignia { opacity: 1; }
-  .no-js-ordenados .papel .insignia { opacity: 1; }
-  .problema .solucion { margin-top: 28px; font-size: 1.15rem; color: var(--texto); font-weight: 500; max-width: 38ch; }
+  .problema h2 { max-width: 20ch; }
+  .antes-despues { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr); gap: 16px; align-items: center; }
+  .columna h3 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-2); margin-bottom: 14px; }
+  .columna.despues h3 { color: var(--petroleo); }
+  .fuentes li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px dashed #cdd6db; }
+  .fuentes li:first-child { border-top: 1px dashed #cdd6db; }
+  .fuentes .ic { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: #E9EDF0; color: var(--texto-2); }
+  .fuentes b { display: block; font-weight: 600; font-size: 0.95rem; }
+  .fuentes span { display: block; font-size: 0.85rem; color: var(--texto-2); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+  .fuentes li.sin-fecha span { font-family: var(--fuente); color: var(--vencido); }
+  .flecha-cambio { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--petroleo); color: var(--blanco); }
+  .papeles { display: grid; gap: 8px; background: var(--blanco); border: 1px solid var(--linea); border-radius: 22px; padding: 10px; box-shadow: 0 24px 60px -40px rgba(16, 25, 35, 0.45); }
+  .papel { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 8px; border-radius: 14px; }
+  .papel + .papel { border-top: 1px solid var(--linea); border-radius: 0; }
+  .papel .ic { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: var(--verde-suave); color: var(--petroleo); }
+  .papel b { display: block; font-weight: 600; font-size: 0.95rem; }
+  .papel span.sub { display: block; font-size: 0.85rem; color: var(--texto-2); }
+  .problema .solucion { margin-top: 28px; font-size: 1.15rem; color: var(--texto); font-weight: 500; max-width: 46ch; }
   .problema .solucion strong { color: var(--petroleo); font-weight: 600; }
-  @media (max-width: 860px) { .problema .contenedor { grid-template-columns: 1fr; } }
+  @media (max-width: 860px) {
+    .antes-despues { grid-template-columns: minmax(0, 1fr); }
+    .flecha-cambio { margin: 4px auto; transform: rotate(90deg); }
+  }
+  @media (max-width: 400px) { .papel { grid-template-columns: 36px minmax(0, 1fr); } .papel .insignia { grid-column: 2; justify-self: start; } }
 
   /* Insignias de estado */
   .insignia { display: inline-flex; align-items: center; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: var(--vigente-fondo); color: var(--vigente); white-space: nowrap; }
@@ -208,50 +220,66 @@
   .insignia.vencido { background: var(--vencido-fondo); color: var(--vencido); }
   .insignia.neutra { background: #ECEFF1; color: var(--texto-2); }
 
-  /* ---------- 03 Todo en un lugar (composición asimétrica) ---------- */
-  .mosaico { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(170px, auto); gap: 14px; }
-  .pieza { border-radius: 24px; padding: clamp(22px, 3vw, 30px); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-  .pieza h3 { font-size: 1.2rem; }
-  .pieza p { color: var(--texto-2); margin-top: 8px; font-size: 0.97rem; }
-  .pieza.vehiculos { grid-column: span 6; grid-row: span 2; background: var(--navy); color: var(--blanco); }
+  /* ---------- 03 Todo en un lugar: cuatro grupos con distinto peso ---------- */
+  .mosaico { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+  .pieza { border-radius: 24px; padding: clamp(22px, 3vw, 32px); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .pieza .grupo { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--petroleo); margin-bottom: 10px; }
+  .pieza h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 700; letter-spacing: -0.02em; }
+  .pieza p { color: var(--texto-2); margin-top: 8px; font-size: 0.97rem; max-width: 48ch; }
+  .pieza.vehiculos { grid-column: span 7; grid-row: span 2; background: var(--navy); color: var(--blanco); }
+  .pieza.vehiculos .grupo { color: var(--menta); }
   .pieza.vehiculos p { color: var(--texto-oscuro-2); }
-  .tipos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 28px; }
+  .tipos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
   .tipos li { padding: 7px 12px; border-radius: 99px; background: var(--navy-2); border: 1px solid var(--navy-linea); font-size: 0.87rem; color: #dbe5ec; }
   .placa { display: inline-flex; flex-direction: column; align-items: center; align-self: flex-start; margin-top: 24px; background: var(--blanco); color: #111; border-radius: 9px; padding: 4px 16px 5px; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px #1d3c8f; }
   .placa b { font-size: 1.9rem; font-weight: 800; letter-spacing: 0.06em; line-height: 1; }
   .placa small { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.35em; }
-  .pieza.tramites { grid-column: span 6; background: var(--verde-suave); }
-  .pieza.tramites p { color: #2f4c45; }
-  .pieza.avisos { grid-column: span 6; background: var(--blanco); border: 1px solid var(--linea); }
-  .dias { display: flex; gap: 6px; margin-top: auto; padding-top: 20px; align-items: flex-end; }
+  .temas-linea { margin-top: auto; padding-top: 28px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .temas-linea p { margin: 0; font-size: 0.9rem; }
+  .franjas { display: flex; gap: 6px; }
+  .franjas span { min-width: 64px; height: 34px; padding: 0 10px; border-radius: 10px; display: grid; place-items: center; font-size: 0.75rem; font-weight: 600; }
+  .pieza.calendario { grid-column: span 5; background: var(--verde-suave); }
+  .pieza.calendario p { color: #2f4c45; }
+  .reglas { margin-top: 18px; display: grid; gap: 8px; }
+  .reglas li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
+  .reglas b { font-weight: 600; }
+  .reglas span { color: #2f4c45; text-align: right; }
+  .pieza.alertas { grid-column: span 5; background: var(--blanco); border: 1px solid var(--linea); }
+  .dias { display: flex; gap: 6px; margin-top: 18px; }
   .dias span { flex: 1; text-align: center; font-weight: 700; font-size: 0.95rem; padding: 8px 0; border-radius: 10px; background: var(--gris); color: var(--texto); }
   .dias span:last-child { background: var(--petroleo); color: var(--blanco); }
-  .pieza.widget { grid-column: span 3; background: var(--blanco); border: 1px solid var(--linea); align-items: flex-start; }
-  .pieza.widget .icono { width: 30px; height: 30px; color: var(--petroleo); margin-bottom: auto; }
-  .pieza.lectura { grid-column: span 6; background: var(--blanco); border: 1px solid var(--linea); }
-  .lectura-fila { display: flex; align-items: center; gap: 14px; margin-top: auto; padding-top: 22px; flex-wrap: wrap; }
-  .lectura-fila .doc { font-family: Arial, sans-serif; font-size: 0.8rem; border: 1px solid #c9d1d6; border-radius: 6px; padding: 8px 12px; color: #222; background: var(--gris); }
+  .widget-linea { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--linea); display: flex; gap: 12px; align-items: flex-start; font-size: 0.93rem; color: var(--texto-2); }
+  .widget-linea .icono { color: var(--petroleo); margin-top: 2px; }
+  .widget-linea b { color: var(--texto); font-weight: 600; }
+  .pieza.lectura { grid-column: span 12; background: var(--gris); border: 1px solid var(--linea); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px; align-items: center; }
+  .lectura-fila { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .lectura-fila .doc { font-family: Arial, sans-serif; font-size: 0.85rem; border: 1px solid #c9d1d6; border-radius: 8px; padding: 14px 16px; color: #222; background: var(--blanco); line-height: 1.5; }
+  .lectura-fila .doc small { display: block; font-size: 0.7rem; color: #666; }
   .lectura-fila .doc mark { background: var(--verde-suave); color: var(--petroleo); outline: 2px solid var(--petroleo); outline-offset: 1px; border-radius: 2px; padding: 0 2px; }
   .lectura-fila .flecha { color: var(--petroleo); }
-  .lectura-fila .campo { border: 1px solid var(--linea); border-radius: 12px; padding: 8px 14px; font-weight: 600; }
+  .lectura-fila .campo { border: 1px solid var(--linea); background: var(--blanco); border-radius: 14px; padding: 10px 16px; font-weight: 600; }
   .lectura-fila .campo small { display: block; font-weight: 500; font-size: 0.75rem; color: var(--texto-2); }
-  .pieza.temas { grid-column: span 3; background: var(--gris); border: 1px solid var(--linea); }
-  .franjas { display: flex; gap: 6px; margin-top: auto; padding-top: 20px; }
-  .franjas span { flex: 1; height: 44px; border-radius: 10px; display: grid; place-items: center; font-size: 0.75rem; font-weight: 600; }
+  .formatos { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .formatos li { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 99px; background: var(--blanco); border: 1px solid var(--linea); font-size: 0.85rem; color: var(--texto-2); }
+  .formatos .icono { width: 16px; height: 16px; color: var(--petroleo); }
   @media (max-width: 960px) {
-    .mosaico { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .pieza.vehiculos { grid-column: span 2; grid-row: auto; }
-    .pieza.tramites, .pieza.lectura { grid-column: span 2; }
-    .pieza.avisos { grid-column: span 2; }
-    .pieza.widget, .pieza.temas { grid-column: span 1; }
+    .pieza.vehiculos, .pieza.calendario, .pieza.alertas { grid-column: span 12; grid-row: auto; }
+    .pieza.lectura { grid-template-columns: minmax(0, 1fr); }
+    .lectura-fila { justify-content: flex-start; }
   }
-  @media (max-width: 520px) { .pieza.widget, .pieza.temas { grid-column: span 2; } .pieza.widget .icono { margin-bottom: 14px; } }
+  @media (max-width: 520px) { .lectura-fila .flecha { transform: rotate(90deg); } .lectura-fila { flex-direction: column; align-items: flex-start; } }
 
   /* ---------- 04 Documentos ---------- */
   .documentos .contenedor { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
   .documentos .visual { display: flex; justify-content: center; }
   .documentos .telefono { --ancho-tel: min(300px, 74vw); }
-  .lista-docs { margin-top: 36px; border-top: 1px solid var(--linea); }
+  .grupo-docs { margin-top: 32px; }
+  .grupo-docs h3 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-2); margin-bottom: 4px; }
+  .lista-docs { border-top: 1px solid var(--linea); }
+  .marca-control { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; color: var(--petroleo); background: var(--verde-suave); padding: 5px 10px; border-radius: 99px; white-space: nowrap; }
+  .marca-control .icono { width: 15px; height: 15px; }
+  .leyenda-control { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 0.88rem; color: var(--texto-2); }
+  .leyenda-control .icono { width: 16px; height: 16px; color: var(--petroleo); }
   .lista-docs li { display: grid; grid-template-columns: 44px 1fr auto; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--linea); }
   .lista-docs .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--verde-suave); color: var(--petroleo); display: grid; place-items: center; }
   .lista-docs b { display: block; font-weight: 600; }
@@ -261,6 +289,8 @@
   .detalles-docs strong { display: block; color: var(--texto); font-weight: 600; margin-bottom: 2px; }
   @media (max-width: 900px) { .documentos .contenedor { grid-template-columns: 1fr; } .documentos .visual { order: 2; } }
   @media (max-width: 560px) { .detalles-docs { grid-template-columns: 1fr; } }
+
+  @media (max-width: 480px) { .lista-docs li { grid-template-columns: 44px minmax(0, 1fr); } .marca-control { grid-column: 2; justify-self: start; } }
 
   /* ---------- 05 Modo control ---------- */
   .control { position: relative; overflow: hidden; }
@@ -278,7 +308,7 @@
   @media (max-width: 900px) { .control .contenedor { grid-template-columns: 1fr; } }
 
   /* Capturas del Modo control con pestañas */
-  .control .telefono { --ancho-tel: min(330px, 80vw); }
+  .control .telefono { --ancho-tel: min(360px, 82vw); }
   .control .pantalla { position: relative; background: #101d47; }
   .control .pantalla img { position: absolute; inset: 0; opacity: 0; transform: translateX(var(--dir, 0)); transition: opacity 0.35s var(--curva), transform 0.35s var(--curva); }
   .control .pantalla img.activa { opacity: 1; transform: none; }
@@ -325,8 +355,10 @@
   .hito time, .hito .cuando { font-size: 0.85rem; font-weight: 600; color: var(--petroleo); }
   .hito b { display: block; font-weight: 600; margin-top: 2px; }
   .hito p { color: var(--texto-2); font-size: 0.95rem; margin-top: 2px; }
-  .barra { height: 6px; border-radius: 99px; background: var(--linea); margin-top: 10px; max-width: 260px; overflow: hidden; }
-  .barra i { display: block; height: 100%; width: 62%; background: var(--petroleo); border-radius: inherit; }
+  .detalle-hito { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .detalle-hito li { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; background: var(--blanco); border: 1px solid var(--linea); font-size: 0.82rem; color: var(--texto-2); }
+  .detalle-hito .icono { width: 14px; height: 14px; color: var(--petroleo); }
+  .nota-hito { margin-top: 8px; font-style: italic; }
   .bitacora { display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; padding: 14px 18px; border-radius: 16px; background: var(--verde-suave); color: #1f4840; font-size: 0.95rem; }
   .bitacora .icono { color: var(--petroleo); }
   .historia .visual { position: relative; display: flex; justify-content: center; min-height: 560px; }
@@ -348,7 +380,7 @@
   .boveda .anillo { position: absolute; border-radius: 50%; border: 1px solid rgba(127, 209, 189, 0.22); }
   .boveda .a1 { inset: 0; } .boveda .a2 { inset: 13%; border-color: rgba(127, 209, 189, 0.32); } .boveda .a3 { inset: 26%; border-color: rgba(127, 209, 189, 0.5); }
   @keyframes cerrar { 0% { transform: scale(1.18); opacity: 0; } 30% { opacity: 1; } 100% { transform: scale(0.72); opacity: 0; } }
-  .boveda .onda { position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--menta); animation: cerrar 4.5s var(--curva) infinite; }
+  .boveda .onda { position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--menta); animation: cerrar 4.5s var(--curva) 3; }
   .boveda .onda.o2 { animation-delay: 1.5s; } .boveda .onda.o3 { animation-delay: 3s; }
   .boveda .centro { position: relative; width: 32%; aspect-ratio: 1; border-radius: 28%; background: var(--petroleo); display: grid; place-items: center; color: var(--blanco); box-shadow: 0 0 0 10px rgba(21, 94, 82, 0.25); }
   .boveda .centro .icono { width: 44%; height: 44%; stroke-width: 1.5; }
@@ -360,13 +392,18 @@
   .garantias .icono { color: var(--menta); width: 26px; height: 26px; }
   .garantias h3 { color: var(--blanco); margin-top: 14px; }
   .garantias p { margin-top: 6px; font-size: 0.95rem; }
+  .titulo-tecnica { margin-top: 56px; text-align: left; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--menta); }
+  .tecnica { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 10px; text-align: left; }
+  .tecnica li { padding: 16px 18px; border-radius: 16px; background: var(--navy-2); border: 1px solid var(--navy-linea); }
+  .tecnica b { display: block; color: var(--blanco); font-weight: 600; font-size: 0.97rem; }
+  .tecnica span { display: block; margin-top: 4px; font-size: 0.9rem; color: var(--texto-oscuro-2); }
   .privacidad .enlace-politica { margin-top: 40px; font-size: 0.95rem; }
   .privacidad .enlace-politica a { color: var(--menta); }
   @media (max-width: 900px) { .garantias { grid-template-columns: 1fr 1fr; } .garantias li:nth-child(3) { padding-left: 0; border-left: 0; } }
   @media (max-width: 560px) { .garantias { grid-template-columns: 1fr; } .garantias li + li { padding-left: 0; border-left: 0; border-top: 1px solid var(--navy-linea); } .boveda .t2 { right: -2%; } .boveda .t4 { left: -2%; } }
 
   /* Qué guarda y dónde */
-  .donde { margin-top: 56px; text-align: left; }
+  .donde { margin-top: 32px; text-align: left; }
   .donde summary { cursor: pointer; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; color: var(--blanco); list-style: none; padding: 12px 0; }
   .donde summary::-webkit-details-marker { display: none; }
   .donde summary .icono { color: var(--menta); transition: transform 0.25s var(--curva); }
@@ -378,12 +415,20 @@
   @media (max-width: 560px) { .donde dl { grid-template-columns: 1fr; } .donde dt { border-bottom: 0; padding-bottom: 2px; } .donde dd { padding-top: 0; } }
 
   /* ---------- 09 Cómo funciona ---------- */
-  .pasos-uso { margin-top: clamp(40px, 6vw, 64px); border-top: 1px solid var(--linea); }
-  .pasos-uso li { display: grid; grid-template-columns: minmax(80px, 0.3fr) 1fr minmax(0, 1fr); gap: 24px; align-items: baseline; padding: clamp(24px, 3.5vw, 36px) 0; border-bottom: 1px solid var(--linea); }
-  .pasos-uso .n { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 800; letter-spacing: -0.05em; color: var(--petroleo); line-height: 1; }
-  .pasos-uso h3 { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -0.025em; }
-  .pasos-uso p { color: var(--texto-2); }
-  @media (max-width: 760px) { .pasos-uso li { grid-template-columns: 64px 1fr; } .pasos-uso p { grid-column: 2; } }
+  .pasos-uso { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); counter-reset: none; }
+  .pasos-uso li { position: relative; padding-top: 28px; border-top: 2px solid var(--linea); }
+  .pasos-uso li::before { content: ""; position: absolute; top: -2px; left: 0; width: 56px; height: 2px; background: var(--petroleo); }
+  .pasos-uso .n { display: block; font-size: clamp(2.6rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.05em; color: var(--petroleo); line-height: 1; }
+  .pasos-uso h3 { margin-top: 20px; font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 700; letter-spacing: -0.025em; }
+  .pasos-uso p { margin-top: 10px; color: var(--texto-2); }
+  @media (max-width: 760px) {
+    .pasos-uso { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .pasos-uso li { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 12px; padding: 24px 0; border-top: 1px solid var(--linea); }
+    .pasos-uso li::before { display: none; }
+    .pasos-uso .n { grid-row: span 2; font-size: 2.6rem; }
+    .pasos-uso h3 { margin-top: 0; }
+    .pasos-uso p { grid-column: 2; }
+  }
 
   /* ---------- 10 Descarga ---------- */
   .descarga .contenedor { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 96px); align-items: start; }
@@ -395,11 +440,24 @@
   .ficha-apk dt { color: var(--texto-oscuro-2); }
   .ficha-apk dd { margin: 0; color: var(--blanco); font-weight: 500; }
   .caja-descarga .boton { width: 100%; margin-top: 28px; min-height: 56px; font-size: 1.05rem; }
-  .huella { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--navy-linea); }
+  .verificacion { margin-top: 18px; border-top: 1px solid var(--navy-linea); }
+  .verificacion > summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding-top: 6px; color: var(--blanco); font-weight: 600; font-size: 0.95rem; }
+  .verificacion > summary::-webkit-details-marker { display: none; }
+  .verificacion > summary span { color: var(--texto-oscuro-2); font-weight: 400; margin-right: auto; }
+  .verificacion > summary::after { content: ""; width: 9px; height: 9px; border-right: 2px solid var(--menta); border-bottom: 2px solid var(--menta); transform: rotate(45deg); transition: transform 0.25s var(--curva); margin-right: 6px; }
+  .verificacion[open] > summary::after { transform: rotate(-135deg); }
+  .verificacion-intro { font-size: 0.9rem; margin-top: 4px; }
+  .huella { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--navy-linea); }
   .huella .titulo { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: var(--texto-oscuro-2); }
-  .huella code { display: block; margin-top: 8px; font: 0.8rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: #d6efe8; word-break: break-all; }
+  .huella > code { display: block; margin-top: 8px; font: 0.8rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: #d6efe8; word-break: break-all; }
   .copiar { border: 1px solid var(--navy-linea); background: transparent; color: var(--menta); font: 600 0.82rem var(--fuente); padding: 6px 12px; border-radius: 8px; cursor: pointer; min-height: 36px; }
   .copiar:hover { background: var(--navy); }
+  .copiar:disabled { opacity: 0.5; cursor: not-allowed; }
+  .estado-copia { min-height: 1.4em; margin-top: 6px; font-size: 0.85rem; color: var(--menta) !important; }
+  .verificar { margin-top: 4px; font-size: 0.88rem; }
+  .verificar summary { cursor: pointer; color: var(--menta); font-weight: 500; min-height: 32px; display: inline-flex; align-items: center; }
+  .verificar p { margin-top: 8px; }
+  .verificar code { font: 0.8rem ui-monospace, SFMono-Regular, Menlo, monospace; color: #d6efe8; overflow-wrap: anywhere; }
   .enlaces-descarga { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 20px; font-size: 0.92rem; }
   .enlaces-descarga a { color: var(--menta); }
   .instalar { counter-reset: paso; margin-top: 36px; }
@@ -410,17 +468,26 @@
   .nota-legal { margin-top: 32px; padding: 20px 22px; border-radius: 18px; background: rgba(252, 239, 210, 0.06); border: 1px solid rgba(252, 239, 210, 0.16); font-size: 0.93rem; }
   .nota-legal b { color: #f5dfae; }
   .nota-legal p + p { margin-top: 10px; }
+  .nota-legal a { color: #f5dfae; }
+  .fuentes-legales { font-size: 0.85rem; }
+  .firma code { letter-spacing: 0.02em; }
+  .aviso-ios { margin-top: 20px; padding: 14px 16px; border-radius: 14px; background: rgba(127, 209, 189, 0.1); border: 1px solid rgba(127, 209, 189, 0.35); color: #d6efe8 !important; font-size: 0.93rem; }
+  .aviso-ios b { color: var(--blanco); }
   @media (max-width: 900px) { .descarga .contenedor { grid-template-columns: 1fr; } }
 
   /* ---------- 11 Preguntas ---------- */
   .preguntas .contenedor { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 80px); }
   .faq details { border-bottom: 1px solid var(--linea); }
   .faq details:first-child { border-top: 1px solid var(--linea); }
-  .faq summary { cursor: pointer; padding: 20px 44px 20px 0; font-weight: 600; font-size: 1.05rem; list-style: none; position: relative; min-height: 44px; }
+  .faq summary { cursor: pointer; padding: 22px 48px 22px 0; font-weight: 600; font-size: 1.05rem; line-height: 1.4; list-style: none; position: relative; min-height: 44px; transition: color 0.2s; }
+  .faq summary:hover { color: var(--petroleo); }
+  .faq summary:focus-visible { outline-offset: 4px; }
   .faq summary::-webkit-details-marker { display: none; }
   .faq summary::after { content: ""; position: absolute; right: 8px; top: 50%; width: 12px; height: 12px; border-right: 2px solid var(--petroleo); border-bottom: 2px solid var(--petroleo); transform: translateY(-70%) rotate(45deg); transition: transform 0.25s var(--curva); }
   .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
-  .faq details p { padding: 0 0 22px; color: var(--texto-2); max-width: 66ch; }
+  .faq details p { padding: 0 0 24px; color: var(--texto-2); max-width: 64ch; line-height: 1.7; }
+  @keyframes abrir-faq { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .faq details[open] p { animation: abrir-faq 0.25s var(--curva); }
   @media (max-width: 860px) { .preguntas .contenedor { grid-template-columns: 1fr; } }
 
   /* ---------- Pie ---------- */
@@ -467,6 +534,8 @@
     <symbol id="i-alerta" viewBox="0 0 24 24"><path d="M12 9v4M10.36 3.6 2.2 17.2A1.9 1.9 0 0 0 3.84 20h16.32a1.9 1.9 0 0 0 1.64-2.8L13.64 3.6a1.9 1.9 0 0 0-3.28 0zM12 16h.01"/></symbol>
     <symbol id="i-usuarios" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M16 3.13a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.85"/></symbol>
     <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M5 18h1.5a1.5 1.5 0 0 0 0-3H5v6M17 18h2M20 15h-3v6M11 15v6h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2z"/></symbol>
+    <symbol id="i-correo" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-llave" viewBox="0 0 24 24"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 10"/></symbol>
     <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></symbol>
     <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
     <symbol id="i-widget" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/></symbol>
@@ -481,7 +550,7 @@
 <header class="nav" id="nav">
   <div class="contenedor">
     <a class="marca" href="#" aria-label="DrivePass, inicio">
-      <img src="simbolo-oscuro.png" alt="" width="30" height="30">
+      <img src="simbolo-oscuro-64.png" alt="" width="30" height="30">
       <span>DrivePass</span>
     </a>
     <ul id="menu">
@@ -506,20 +575,23 @@
       <div class="hero-texto">
         <h1 class="entra">Todo lo de tu vehículo. <span>Sin buscar nada.</span></h1>
         <p class="bajada entra d1">Documentos, vencimientos y mantenciones. Todo organizado y disponible cuando lo necesitas.</p>
-        <ul class="confianza entra d2" aria-label="Cómo funciona DrivePass">
+        <div class="acciones entra d2">
+          <a class="boton boton-principal" href="#descargar"><svg class="icono" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar DrivePass</a>
+          <a class="boton boton-texto" href="#problema">Descubrir DrivePass<svg class="icono" aria-hidden="true"><use href="#i-abajo"/></svg></a>
+        </div>
+        <ul class="confianza entra d3" aria-label="Cómo funciona DrivePass">
           <li><svg class="icono" aria-hidden="true"><use href="#i-wifi-off"/></svg>Sin internet</li>
           <li><svg class="icono" aria-hidden="true"><use href="#i-usuario-off"/></svg>Sin cuentas</li>
           <li><svg class="icono" aria-hidden="true"><use href="#i-servidor-off"/></svg>Sin servidores</li>
         </ul>
-        <div class="acciones entra d3">
-          <a class="boton boton-principal" href="#descargar"><svg class="icono" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar DrivePass</a>
-          <a class="boton boton-texto" href="#problema">Descubrir DrivePass<svg class="icono" aria-hidden="true"><use href="#i-abajo"/></svg></a>
-        </div>
-        <p class="detalle-version entra d4" id="detalle-version">Gratis, para Android 7 o superior.</p>
+        <p class="detalle-version entra d4">Versión <span data-release="version">1.23.0</span> del <span data-release="fecha">25 nov 2026</span>. Gratis, para Android 7 o superior.</p>
       </div>
       <div class="hero-visual">
+        <div class="telefono tel-atras" aria-hidden="true">
+          <div class="pantalla"><img src="capturas/modo-control-revision.webp" srcset="capturas/modo-control-revision-360.webp 360w, capturas/modo-control-revision.webp 720w" sizes="(max-width: 500px) 80vw, 360px" width="720" height="1507" alt="" loading="lazy"></div>
+        </div>
         <div class="telefono">
-          <div class="pantalla"><img src="capturas/inicio.webp" width="720" height="1620" alt="Pantalla de inicio de DrivePass con la ilustración del vehículo, el botón Modo control y la lista de documentos del vehículo." fetchpriority="high"></div>
+          <div class="pantalla"><img src="capturas/inicio.webp" srcset="capturas/inicio-360.webp 360w, capturas/inicio.webp 720w" sizes="(max-width: 500px) 78vw, 380px" width="720" height="1620" alt="Pantalla de inicio de DrivePass con la ilustración del vehículo, el botón Modo control y la lista de documentos del vehículo." fetchpriority="high"></div>
         </div>
         <div class="flotante f1" aria-hidden="true"><svg class="icono"><use href="#i-campana"/></svg><div>Avisos de vencimiento<small>30, 15, 7 y 1 día antes</small></div></div>
         <div class="flotante f2" aria-hidden="true"><svg class="icono"><use href="#i-escudo"/></svg><div>Modo control<small>con el QR oficial</small></div></div>
@@ -530,18 +602,31 @@
   <!-- 02 · El problema -->
   <section class="problema" id="problema">
     <div class="contenedor">
-      <div>
-        <span class="etiqueta revelar">El problema</span>
-        <h2 class="revelar">Cuando necesitas un documento, no debería ser complicado encontrarlo.</h2>
-        <p class="bajada revelar r2">Un PDF en el correo, una foto en la galería, el papel en la guantera. Y la fecha de vencimiento, en ninguna parte.</p>
-        <p class="solucion revelar r3">DrivePass los junta <strong>por vehículo</strong>, con su fecha y su estado.</p>
+      <span class="etiqueta revelar">El problema</span>
+      <h2 class="revelar">Cuando necesitas un documento, no debería ser complicado encontrarlo.</h2>
+      <p class="bajada revelar r2">Un PDF en el correo, una foto en la galería, el papel en la guantera. Y la fecha de vencimiento, en ninguna parte.</p>
+      <div class="antes-despues">
+        <div class="columna revelar">
+          <h3>Hoy</h3>
+          <ul class="fuentes">
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-correo"/></svg></span><div><b>En el correo</b><span>soap_2026_final.pdf</span></div></li>
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-foto"/></svg></span><div><b>En la galería</b><span>IMG_20260314_0932.jpg</span></div></li>
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-archivo"/></svg></span><div><b>En la guantera</b><span>revisión técnica, doblada</span></div></li>
+            <li class="sin-fecha"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-reloj"/></svg></span><div><b>El vencimiento</b><span>en ninguna parte</span></div></li>
+          </ul>
+        </div>
+        <span class="flecha-cambio revelar r2" aria-hidden="true"><svg class="icono"><use href="#i-flecha"/></svg></span>
+        <div class="columna despues revelar r3">
+          <h3>En DrivePass</h3>
+          <div class="papeles" aria-label="Los mismos documentos ordenados en DrivePass">
+            <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-paraguas"/></svg></span><div><b>SOAP</b><span class="sub">Vence el 31 mar 2027</span></div><span class="insignia">Vigente</span></div>
+            <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-recibo"/></svg></span><div><b>Permiso de circulación</b><span class="sub">Vence el 31 mar 2027</span></div><span class="insignia">Vigente</span></div>
+            <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-portapapeles"/></svg></span><div><b>Revisión técnica</b><span class="sub">Vence en 12 días</span></div><span class="insignia vencer">Por vencer</span></div>
+            <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-certificado"/></svg></span><div><b>Padrón</b><span class="sub">Sin vencimiento</span></div><span class="insignia neutra">No vence</span></div>
+          </div>
+        </div>
       </div>
-      <div class="papeles" id="papeles" aria-label="Documentos ordenados en DrivePass">
-        <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-paraguas"/></svg></span><div><b>SOAP</b><span class="viejo">soap_2025_final.pdf</span><span class="nuevo">vence 31 mar 2027</span></div><span class="insignia">Vigente</span></div>
-        <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-recibo"/></svg></span><div><b>Permiso de circulación</b><span class="viejo">IMG_20250314.jpg</span><span class="nuevo">2ª cuota hasta el 31 ago</span></div><span class="insignia vencer">2ª cuota</span></div>
-        <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-portapapeles"/></svg></span><div><b>Revisión técnica</b><span class="viejo">en la guantera, creo</span><span class="nuevo">vence en 12 días</span></div><span class="insignia vencer">Por vencer</span></div>
-        <div class="papel"><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-certificado"/></svg></span><div><b>Padrón</b><span class="viejo">correo del 2019</span><span class="nuevo">sin vencimiento</span></div><span class="insignia neutra">No vence</span></div>
-      </div>
+      <p class="solucion revelar">DrivePass los junta <strong>por vehículo</strong>, con su fecha y su estado.</p>
     </div>
   </section>
 
@@ -552,40 +637,50 @@
       <h2 class="revelar">Tu vehículo tiene mucho más que una patente.</h2>
       <div class="mosaico">
         <article class="pieza vehiculos revelar">
-          <h3>Todos tus vehículos</h3>
-          <p>Cada uno con su patente, su ilustración, sus documentos y su historial.</p>
+          <span class="grupo">Vehículos</span>
+          <h3>Todos tus vehículos, cada uno con lo suyo</h3>
+          <p>Su patente, su ilustración, sus documentos y su historial. Marca, modelo, año, color, VIN y motor si quieres.</p>
           <div class="placa" aria-label="Patente de ejemplo"><b class="patente-demo" data-sep="·">DEMO·26</b><small>CHILE</small></div>
           <ul class="tipos" aria-label="Tipos de vehículo">
             <li>Auto</li><li>Camioneta</li><li>Moto</li><li>Furgón</li><li>Camión</li><li>Bus</li><li>Casa rodante</li><li>Remolque</li><li>Maquinaria</li>
           </ul>
+          <div class="temas-linea">
+            <p>Tema según la hora, o el que elijas:</p>
+            <div class="franjas" aria-hidden="true"><span style="background:#EAF1F8;color:#28405e">Día</span><span style="background:#3a2559;color:#f3c99b">Tarde</span><span style="background:#232f45;color:#c8d6ee">Noche</span></div>
+          </div>
         </article>
-        <article class="pieza tramites revelar r2">
+        <article class="pieza calendario revelar r2">
+          <span class="grupo">Calendario y vencimientos</span>
           <h3>Próximos trámites, aunque falte el papel</h3>
-          <p>Si no has cargado un documento, DrivePass calcula la fecha con el calendario chileno: la revisión técnica según el último dígito de la patente, y el permiso y el SOAP al 31 de marzo.</p>
+          <p>Si no has cargado un documento, DrivePass calcula la fecha con el calendario chileno.</p>
+          <ul class="reglas">
+            <li><b>Revisión técnica</b><span>según el último dígito de la patente</span></li>
+            <li><b>Permiso y SOAP</b><span>31 de marzo</span></li>
+          </ul>
         </article>
-        <article class="pieza avisos revelar">
+        <article class="pieza alertas revelar r2">
+          <span class="grupo">Alertas</span>
           <h3>Avisos antes de que venza</h3>
           <p>Programados en el mismo teléfono. La licencia avisa también 60 días antes.</p>
-          <div class="dias" aria-label="Días de anticipación"><span>30</span><span>15</span><span>7</span><span>1</span><span>Hoy</span></div>
-        </article>
-        <article class="pieza widget revelar r2">
-          <svg class="icono" aria-hidden="true"><use href="#i-widget"/></svg>
-          <h3>Widget</h3>
-          <p>Estado de tus documentos en la pantalla de inicio. Con tu huella abre el Modo control.</p>
+          <div class="dias" aria-label="Días de anticipación: 30, 15, 7 y 1 día antes, y el mismo día"><span>30</span><span>15</span><span>7</span><span>1</span><span>Hoy</span></div>
+          <p class="widget-linea"><svg class="icono" aria-hidden="true"><use href="#i-widget"/></svg><span><b>Widget:</b> el estado de tus documentos en la pantalla de inicio. Con tu huella abre el Modo control.</span></p>
         </article>
         <article class="pieza lectura revelar">
-          <h3>Lee la fecha y el QR por ti</h3>
-          <p>Foto o PDF. El reconocimiento se hace dentro del teléfono y siempre te muestra lo que leyó para que lo revises.</p>
+          <div>
+            <span class="grupo">Importación y lectura</span>
+            <h3>Lee la fecha y el QR por ti</h3>
+            <p>Saca una foto, escanéalo o importa el PDF. El reconocimiento se hace dentro del teléfono y siempre te muestra lo que leyó para que lo revises.</p>
+            <ul class="formatos" aria-label="Formas de agregar un documento">
+              <li><svg class="icono" aria-hidden="true"><use href="#i-foto"/></svg>Foto</li>
+              <li><svg class="icono" aria-hidden="true"><use href="#i-archivo"/></svg>Escáner</li>
+              <li><svg class="icono" aria-hidden="true"><use href="#i-pdf"/></svg>PDF</li>
+            </ul>
+          </div>
           <div class="lectura-fila" aria-hidden="true">
-            <span class="doc">VÁLIDO HASTA <mark>MAR/2027</mark></span>
+            <span class="doc"><small>REVISIÓN TÉCNICA</small>VÁLIDO HASTA <mark>MAR/2027</mark></span>
             <svg class="icono flecha"><use href="#i-flecha"/></svg>
             <span class="campo"><small>Vencimiento</small>31 mar 2027</span>
           </div>
-        </article>
-        <article class="pieza temas revelar r2">
-          <h3>Tema según la hora</h3>
-          <p>Claro de día, atardecer y nocturno. O el que elijas.</p>
-          <div class="franjas" aria-hidden="true"><span style="background:#EAF1F8;color:#28405e">Día</span><span style="background:#3a2559;color:#f3c99b">Tarde</span><span style="background:#16122b;color:#c8c3ea">Noche</span></div>
         </article>
       </div>
     </div>
@@ -596,7 +691,7 @@
     <div class="contenedor">
       <div class="visual revelar">
         <div>
-          <div class="telefono"><div class="pantalla"><img src="capturas/agregar-documento.webp" width="720" height="1533" loading="lazy" alt="Pantalla Agregar documento de DrivePass: del vehículo, permiso de circulación, SOAP, revisión técnica y padrón; del conductor, licencia de conducir y cédula de identidad."></div></div>
+          <div class="telefono"><div class="pantalla"><img src="capturas/agregar-documento.webp" srcset="capturas/agregar-documento-360.webp 360w, capturas/agregar-documento.webp 720w" sizes="(max-width: 500px) 80vw, 360px" width="720" height="1533" loading="lazy" alt="Pantalla Agregar documento de DrivePass: del vehículo, permiso de circulación, SOAP, revisión técnica y padrón; del conductor, licencia de conducir y cédula de identidad."></div></div>
           <p class="pie-captura">Captura real de DrivePass</p>
         </div>
       </div>
@@ -604,13 +699,23 @@
         <span class="etiqueta revelar">Documentos</span>
         <h2 class="revelar">Lo importante. Siempre a mano.</h2>
         <p class="bajada revelar r2">Saca una foto, escanéalo o importa el PDF. Cada documento queda con su fecha de vencimiento y su estado.</p>
-        <ul class="lista-docs revelar r2">
-          <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-recibo"/></svg></span><div><b>Permiso de circulación</b><span class="sub">Avisa también la 2ª cuota si pagaste en dos</span></div><span class="insignia">Vigente</span></li>
-          <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-paraguas"/></svg></span><div><b>SOAP</b><span class="sub">Seguro obligatorio</span></div><span class="insignia">Vigente</span></li>
-          <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-portapapeles"/></svg></span><div><b>Revisión técnica</b><span class="sub">También el certificado de homologación</span></div><span class="insignia vencer">Por vencer</span></li>
-          <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-certificado"/></svg></span><div><b>Padrón</b><span class="sub">Certificado de inscripción</span></div><span class="insignia neutra">No vence</span></li>
-          <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-licencia"/></svg></span><div><b>Licencia y cédula</b><span class="sub">Del conductor, como referencia</span></div><span class="insignia neutra">Referencia</span></li>
-        </ul>
+        <div class="grupo-docs revelar r2">
+          <h3>Del vehículo</h3>
+          <ul class="lista-docs">
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-recibo"/></svg></span><div><b>Permiso de circulación</b><span class="sub">Avisa también la 2ª cuota si pagaste en dos</span></div><span class="marca-control"><svg class="icono" aria-hidden="true"><use href="#i-escudo"/></svg>Modo control</span></li>
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-paraguas"/></svg></span><div><b>SOAP</b><span class="sub">Seguro obligatorio, con el certificado original</span></div><span class="marca-control"><svg class="icono" aria-hidden="true"><use href="#i-escudo"/></svg>Modo control</span></li>
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-portapapeles"/></svg></span><div><b>Revisión técnica</b><span class="sub">También el certificado de homologación</span></div><span class="marca-control"><svg class="icono" aria-hidden="true"><use href="#i-escudo"/></svg>Modo control</span></li>
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-certificado"/></svg></span><div><b>Padrón</b><span class="sub">Certificado de inscripción, sin vencimiento</span></div></li>
+          </ul>
+        </div>
+        <div class="grupo-docs revelar r2">
+          <h3>Del conductor</h3>
+          <ul class="lista-docs">
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-licencia"/></svg></span><div><b>Licencia de conducir</b><span class="sub">Como referencia, con aviso antes de que venza</span></div></li>
+            <li><span class="ic"><svg class="icono" aria-hidden="true"><use href="#i-licencia"/></svg></span><div><b>Cédula de identidad</b><span class="sub">Como referencia</span></div></li>
+          </ul>
+        </div>
+        <p class="leyenda-control revelar"><svg class="icono" aria-hidden="true"><use href="#i-escudo"/></svg>Aparece en el Modo control, con su QR oficial o el certificado original.</p>
         <div class="detalles-docs revelar r3">
           <p><strong>Renueva sin perder lo anterior</strong>Al cargar el SOAP nuevo, el del año pasado queda en el historial del documento.</p>
           <p><strong>Licencia por vencer</strong>Te indica qué llevar y abre la página de tu municipalidad para pedir hora.</p>
@@ -641,8 +746,8 @@
         <div class="telefono">
           <div class="pantalla" id="pantalla-control" role="tabpanel" aria-live="polite">
             <img class="activa" src="capturas/modo-control-revision.webp" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con la revisión técnica: estado Por vencer, fecha de vencimiento y código QR a pantalla completa.">
-            <img src="capturas/modo-control-soap.webp" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con el SOAP: estado Vigente, aseguradora, póliza, folio y el certificado original recortado.">
-            <img src="capturas/modo-control-permiso.webp" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con el permiso de circulación: estado Vigente, fecha de vencimiento y código QR.">
+            <img src="capturas/modo-control-soap.webp" srcset="capturas/modo-control-soap-360.webp 360w, capturas/modo-control-soap.webp 720w" sizes="(max-width: 500px) 80vw, 360px" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con el SOAP: estado Vigente, aseguradora, póliza, folio y el certificado original recortado.">
+            <img src="capturas/modo-control-permiso.webp" srcset="capturas/modo-control-permiso-360.webp 360w, capturas/modo-control-permiso.webp 720w" sizes="(max-width: 500px) 80vw, 360px" width="720" height="1507" loading="lazy" alt="Modo control de DrivePass con el permiso de circulación: estado Vigente, fecha de vencimiento y código QR.">
           </div>
         </div>
         <p class="pie-captura">Capturas reales con datos de ejemplo</p>
@@ -680,18 +785,39 @@
       <div>
         <span class="etiqueta revelar">Mantenciones</span>
         <h2 class="revelar">Más que documentos. La historia de tu vehículo.</h2>
-        <p class="bajada revelar r2">Cada visita al taller con su kilometraje, el lugar, los trabajos marcados de una lista, el costo y una nota. Agenda la próxima hora y recibe el aviso.</p>
-        <div class="linea-tiempo" id="linea-tiempo" aria-label="Ejemplo de historial de mantenciones">
-          <div class="hito proxima"><span class="cuando">Próxima mantención · 95.000 km</span><b>Faltan 3.600 km</b><div class="barra" aria-hidden="true"><i></i></div></div>
-          <div class="hito"><time datetime="2026-03-12">12 mar 2026 · 85.400 km</time><b>Aceite y filtros</b><p>Taller de siempre · 4 trabajos · con costo y nota</p></div>
-          <div class="hito"><time datetime="2025-10-20">20 oct 2025 · 78.100 km</time><b>Pastillas de freno</b><p>Hora agendada con aviso en el teléfono</p></div>
-        </div>
+        <p class="bajada revelar r2">Cada visita al taller con su fecha, kilometraje, lugar, los trabajos marcados de una lista, el costo y una nota. Define la próxima mantención por kilometraje, agenda la hora y recibe el aviso.</p>
+        <ol class="linea-tiempo" id="linea-tiempo" aria-label="Ejemplo de historial de mantenciones de un vehículo">
+          <li class="hito proxima">
+            <span class="cuando">Próxima mantención</span>
+            <b>A los 95.000 km</b>
+            <p>Faltan 9.600 km desde el último kilometraje registrado (85.400 km).</p>
+          </li>
+          <li class="hito">
+            <time datetime="2026-03-12">12 mar 2026 · 85.400 km</time>
+            <b>Aceite de motor y filtros</b>
+            <ul class="detalle-hito" aria-label="Detalle">
+              <li><svg class="icono" aria-hidden="true"><use href="#i-llave"/></svg>Taller de ejemplo</li>
+              <li>3 trabajos</li>
+              <li>$68.000</li>
+            </ul>
+            <p class="nota-hito">«Próximo cambio a los 95.000 km»</p>
+          </li>
+          <li class="hito">
+            <time datetime="2025-10-20">20 oct 2025 · 78.100 km</time>
+            <b>Pastillas de freno delanteras</b>
+            <ul class="detalle-hito" aria-label="Detalle">
+              <li><svg class="icono" aria-hidden="true"><use href="#i-llave"/></svg>Taller de ejemplo</li>
+              <li>1 trabajo</li>
+              <li>$45.000</li>
+            </ul>
+          </li>
+        </ol>
         <p class="bitacora revelar"><svg class="icono" aria-hidden="true"><use href="#i-pdf"/></svg>Bitácora en PDF para vender el vehículo, sin datos del dueño ni costos.</p>
       </div>
       <div class="visual revelar r2">
-        <div class="telefono atras" aria-hidden="true"><div class="pantalla"><img src="capturas/ficha-vehiculo.webp" width="720" height="1557" loading="lazy" alt=""></div></div>
+        <div class="telefono atras" aria-hidden="true"><div class="pantalla"><img src="capturas/ficha-vehiculo.webp" srcset="capturas/ficha-vehiculo-360.webp 360w, capturas/ficha-vehiculo.webp 720w" sizes="(max-width: 500px) 80vw, 360px" width="720" height="1557" loading="lazy" alt=""></div></div>
         <div class="adelante">
-          <div class="telefono"><div class="pantalla"><img src="capturas/registrar-mantencion.webp" width="720" height="1883" loading="lazy" alt="Formulario Registrar mantención de DrivePass con fecha, kilometraje, taller o lugar y la lista de trabajos de motor y filtros."></div></div>
+          <div class="telefono"><div class="pantalla"><img src="capturas/registrar-mantencion.webp" srcset="capturas/registrar-mantencion-360.webp 360w, capturas/registrar-mantencion.webp 720w" sizes="(max-width: 500px) 80vw, 360px" width="720" height="1883" loading="lazy" alt="Formulario Registrar mantención de DrivePass con fecha, kilometraje, taller o lugar y la lista de trabajos de motor y filtros."></div></div>
           <p class="pie-captura">Capturas reales de DrivePass</p>
         </div>
       </div>
@@ -703,7 +829,7 @@
     <div class="contenedor">
       <span class="etiqueta revelar">Privacidad</span>
       <h2 class="revelar">Tu información no necesita salir de tu teléfono.</h2>
-      <p class="bajada revelar r2">DrivePass está diseñado para que tus documentos y datos permanezcan en tu dispositivo. No hay servidores, así que no existe una base con las patentes, RUT o pólizas de quienes la usan.</p>
+      <p class="bajada revelar r2">DrivePass está diseñado para que tus documentos y datos permanezcan en tu dispositivo.</p>
 
       <div class="boveda revelar" aria-hidden="true">
         <span class="anillo a1"></span><span class="anillo a2"></span><span class="anillo a3"></span>
@@ -713,10 +839,21 @@
       </div>
 
       <ul class="garantias">
-        <li class="revelar"><svg class="icono" aria-hidden="true"><use href="#i-wifi-off"/></svg><h3>Android le bloquea Internet</h3><p>La app no tiene permiso de conexión. No es una promesa: lo impone el sistema.</p></li>
-        <li class="revelar r2"><svg class="icono" aria-hidden="true"><use href="#i-candado"/></svg><h3>Base de datos cifrada</h3><p>Su clave vive en el almacén seguro del teléfono (Keystore), no en la app.</p></li>
-        <li class="revelar r3"><svg class="icono" aria-hidden="true"><use href="#i-huella"/></svg><h3>Huella para entrar</h3><p>Huella, rostro o PIN. Las capturas de pantalla se bloquean por defecto.</p></li>
-        <li class="revelar"><svg class="icono" aria-hidden="true"><use href="#i-carpeta"/></svg><h3>Respaldo con tu contraseña</h3><p>Manual o automático, cifrado, en la carpeta que elijas. Sin la contraseña nadie lo abre.</p></li>
+        <li class="revelar"><svg class="icono" aria-hidden="true"><use href="#i-wifi-off"/></svg><h3>Sin Internet</h3><p>La app no tiene permiso de conexión. No es una promesa: lo impone Android.</p></li>
+        <li class="revelar r2"><svg class="icono" aria-hidden="true"><use href="#i-usuario-off"/></svg><h3>Sin cuentas</h3><p>No pide correo, teléfono ni contraseña.</p></li>
+        <li class="revelar r3"><svg class="icono" aria-hidden="true"><use href="#i-candado"/></svg><h3>Cifrado</h3><p>La base de datos del teléfono está cifrada.</p></li>
+        <li class="revelar"><svg class="icono" aria-hidden="true"><use href="#i-servidor-off"/></svg><h3>Sin servidores</h3><p>No existe una base central con las patentes, RUT o pólizas de quienes la usan.</p></li>
+      </ul>
+
+      <h3 class="titulo-tecnica revelar">Cómo lo hace</h3>
+      <ul class="tecnica revelar">
+        <li><b>Keystore</b><span>La clave de cifrado vive en el almacén seguro del sistema, no en la app.</span></li>
+        <li><b>Autenticación</b><span>Huella, rostro o PIN para abrir la app.</span></li>
+        <li><b>Bloqueo de capturas</b><span>Activado por defecto, salvo en el Modo control.</span></li>
+        <li><b>Respaldo cifrado</b><span>Manual o automático, con tu contraseña, en la carpeta que elijas.</span></li>
+        <li><b>Lectura local</b><span>El texto y los QR se leen en el teléfono; las imágenes no se envían.</span></li>
+        <li><b>Ubicación opcional</b><span>Solo si la permites, para registrar un accidente.</span></li>
+        <li><b>Almacenamiento local</b><span>Fotos y PDF en la carpeta privada de la app, con nombres aleatorios.</span></li>
       </ul>
 
       <details class="donde">
@@ -742,8 +879,8 @@
       <h2 class="revelar">Tres pasos y listo.</h2>
       <ol class="pasos-uso">
         <li class="revelar"><span class="n">01</span><h3>Registra tu vehículo.</h3><p>Nombre, tipo y patente. Marca, modelo, VIN y motor si quieres.</p></li>
-        <li class="revelar"><span class="n">02</span><h3>Organiza tus documentos.</h3><p>Foto, escáner o PDF. DrivePass propone la fecha y tú la confirmas.</p></li>
-        <li class="revelar"><span class="n">03</span><h3>Consulta cuando la necesites.</h3><p>Modo control en un toque y avisos antes de cada vencimiento.</p></li>
+        <li class="revelar r2"><span class="n">02</span><h3>Organiza tus documentos.</h3><p>Foto, escáner o PDF. DrivePass propone la fecha y tú la confirmas.</p></li>
+        <li class="revelar r3"><span class="n">03</span><h3>Consulta cuando la necesites.</h3><p>Modo control en un toque y avisos antes de cada vencimiento.</p></li>
       </ol>
     </div>
   </section>
@@ -766,27 +903,48 @@
         <div class="caja-descarga">
           <div class="cabeza">
             <h3>DrivePass para Android</h3>
-            <div class="placa version" id="placa-version" aria-label="Última versión"><b id="placa-texto">V1</b><small>CHILE</small></div>
+            <div class="placa version" aria-hidden="true"><b data-release="placa">V1·23·0</b><small>CHILE</small></div>
           </div>
           <dl class="ficha-apk">
-            <dt>Versión</dt><dd id="dato-version">La más reciente</dd>
-            <dt id="t-fecha" hidden>Publicada</dt><dd id="dato-fecha" hidden></dd>
-            <dt id="t-tamano" hidden>Tamaño</dt><dd id="dato-tamano" hidden></dd>
-            <dt>Requisitos</dt><dd>Android 7.0 o superior, 64 bits</dd>
+            <dt>Versión</dt><dd data-release="version">1.23.0</dd>
+            <dt>Publicada</dt><dd data-release="fecha">25 nov 2026</dd>
+            <dt>Tamaño</dt><dd><span data-release="tamano">66 MB</span> (APK)</dd>
+            <dt>Compatibilidad</dt><dd>Android 7.0 o superior, procesador ARM de 64 bits</dd>
             <dt>Precio</dt><dd>Gratis, sin anuncios</dd>
           </dl>
-          <a class="boton boton-principal" id="enlace-apk" href="https://github.com/DiceaDev/drivepass/releases/latest"><svg class="icono" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar APK</a>
-          <div class="huella" id="bloque-huella" hidden>
-            <div class="titulo"><span>Huella SHA-256</span><button class="copiar" type="button" id="copiar-huella">Copiar</button></div>
-            <code id="dato-huella"></code>
-          </div>
+          <p class="aviso-ios" id="aviso-ios" hidden><b>Estás en un iPhone o iPad.</b> DrivePass es solo para Android por ahora. Abre esta página en un teléfono Android para instalarla.</p>
+          <a class="boton boton-principal" data-release-href="apk" href="https://github.com/DiceaDev/drivepass/releases/download/v1.23.0/DrivePass-1.23.0.apk"><svg class="icono" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar APK</a>
+          <details class="verificacion">
+            <summary>Verificación del archivo <span>(opcional)</span></summary>
+            <div class="verificacion-cuerpo">
+              <p class="verificacion-intro">No es necesaria para instalar. Sirve para comprobar que el APK es el original publicado aquí.</p>
+              <div class="huella">
+                <div class="titulo"><span id="titulo-huella">Huella SHA-256 del APK</span><button class="copiar" type="button" id="copiar-huella" aria-describedby="titulo-huella">Copiar</button></div>
+                <code id="dato-huella" data-release="huella">e25be57b1bb18f1df3f1de8f4eea7525f9f5c80daa95c14c550a68360401efcc</code>
+                <p class="estado-copia" id="estado-copia" role="status" aria-live="polite"></p>
+                <details class="verificar">
+                  <summary>¿Cómo la compruebo?</summary>
+                  <p>Es la huella que GitHub calcula del archivo publicado. En un computador, compárala con la salida de <code>sha256sum DrivePass-<span data-release="version">1.23.0</span>.apk</code> (Linux o macOS) o <code>certutil -hashfile DrivePass-<span data-release="version">1.23.0</span>.apk SHA256</code> (Windows). Si no coinciden, no instales el archivo.</p>
+                </details>
+              </div>
+              <div class="huella firma">
+                <div class="titulo"><span>Certificado de firma (SHA-256)</span></div>
+                <code data-release="certificado">E8:BE:4C:84:8C:6D:46:57:AC:65:57:00:84:27:26:E5:F1:2D:81:3C:7C:26:DA:B7:E0:3F:09:6B:59:3D:48:51</code>
+                <details class="verificar">
+                  <summary>¿Para qué sirve?</summary>
+                  <p>La huella del archivo cambia en cada versión; la del certificado no. Identifica a quien firma DrivePass (DiceaDev, Chile) y es la misma en todas las versiones. Android no instala una actualización firmada con otro certificado. Para revisarla en un computador: <code>apksigner verify --print-certs DrivePass-<span data-release="version">1.23.0</span>.apk</code>.</p>
+                </details>
+              </div>
+            </div>
+          </details>
           <div class="enlaces-descarga">
-            <a id="enlace-novedades" href="https://github.com/DiceaDev/drivepass/releases">Novedades y versiones</a>
-            <a href="https://github.com/DiceaDev/drivepass/releases/latest">GitHub Releases</a>
+            <a data-release-href="notas" href="https://github.com/DiceaDev/drivepass/releases/tag/v1.23.0">Novedades de esta versión</a>
+            <a href="https://github.com/DiceaDev/drivepass/releases">Todas las versiones en GitHub</a>
           </div>
         </div>
         <div class="nota-legal">
-          <p><b>Antes de dejar los papeles en la casa.</b> Desde 2020 se puede mostrar en formato digital el permiso de circulación, el SOAP y la revisión técnica, porque traen un QR oficial que el fiscalizador puede verificar. DrivePass no es una app oficial y no reemplaza esos documentos.</p>
+          <p><b>Antes de dejar los papeles en la casa.</b> En 2013 Contraloría confirmó que el permiso de circulación y el SOAP se pueden mostrar en formato digital, y Carabineros acepta también así la revisión técnica: los tres traen un QR oficial que el fiscalizador puede verificar. DrivePass no es una app oficial y no reemplaza esos documentos.</p>
+          <p class="fuentes-legales">Fuentes: <a href="https://www.eldinamo.cl/tech/2013/11/22/contraloria-autoriza-a-conductores-a-mostrar-permiso-de-circulacion-a-traves-de-moviles/" rel="noopener">El Dínamo, 2013</a> · <a href="https://www.24horas.cl/te-sirve/permiso-de-circulacion-2025-documento-impreso-digital" rel="noopener">24 Horas, 2025</a>. La licencia de conducir solo vale en digital desde la app oficial de CONASET.</p>
           <p>Las reglas pueden cambiar y cada fiscalizador decide. Si tienes dudas, lleva también los documentos físicos. DrivePass es un proyecto personal: úsalo con criterio, haz respaldos y descárgalo solo desde esta página.</p>
         </div>
       </div>
@@ -822,7 +980,7 @@
   <div class="contenedor">
     <div class="arriba">
       <div>
-        <a class="marca" href="#" aria-label="DrivePass, inicio"><img src="simbolo-oscuro.png" alt="" width="30" height="30" loading="lazy"><span>DrivePass</span></a>
+        <a class="marca" href="#" aria-label="DrivePass, inicio"><img src="simbolo-oscuro-64.png" alt="" width="30" height="30" loading="lazy"><span>DrivePass</span></a>
         <p>Los documentos, vencimientos y mantenciones de tu vehículo, en tu teléfono. Sin internet, sin cuentas y sin servidores.</p>
       </div>
       <div>
@@ -873,63 +1031,93 @@
       boton.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
     });
     Array.prototype.forEach.call(nav.querySelectorAll('ul a'), function (a) { a.addEventListener('click', cerrar); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') cerrar(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('abierto')) { cerrar(); boton.focus(); } });
+    document.addEventListener('click', function (e) { if (nav.classList.contains('abierto') && !nav.contains(e.target)) cerrar(); });
   })();
 
   // Aparición al hacer scroll. Sin IntersectionObserver o con movimiento reducido, todo queda visible.
   (function () {
-    var elementos = document.querySelectorAll('.revelar, #papeles, #linea-tiempo');
+    var elementos = document.querySelectorAll('.revelar, #linea-tiempo');
     var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function mostrar(el) { el.classList.add(el.id === 'papeles' ? 'ordenados' : 'visible'); }
+    function mostrar(el) { el.classList.add('visible'); }
     if (reducido || !('IntersectionObserver' in window)) { Array.prototype.forEach.call(elementos, mostrar); return; }
     var obs = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (e) {
         if (!e.isIntersecting) return;
         var el = e.target;
-        if (el.id === 'papeles') setTimeout(function () { mostrar(el); }, 450); else mostrar(el);
+        mostrar(el);
         obs.unobserve(el);
       });
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
     Array.prototype.forEach.call(elementos, function (el) { obs.observe(el); });
   })();
 
-  // Versión, fecha, tamaño, huella SHA-256 y enlace directo del APK desde la última release publicada.
-  // Si GitHub no responde, queda el texto genérico y el botón va a la página de descargas.
+  // Datos de la última versión publicada.
+  // La página ya trae los valores escritos por el flujo de GitHub Actions (actualizar-release.yml), así que se
+  // leen sin JavaScript. Aquí se refrescan desde release.json, del mismo sitio: la página no consulta a terceros.
+  // Solo se aceptan datos con el formato esperado y enlaces del repositorio.
   (function () {
+    var BASE = 'https://github.com/DiceaDev/drivepass/releases/';
     var meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'];
-    function $(id) { return document.getElementById(id); }
-    function mostrar(t, d, texto) { $(d).textContent = texto; $(t).hidden = false; $(d).hidden = false; }
-    fetch('https://api.github.com/repos/DiceaDev/drivepass/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-      .then(function (rel) {
-        var version = String(rel.tag_name || '').replace(/^v/, '');
-        if (!/^\d+\.\d+\.\d+$/.test(version)) return;
-        var f = new Date(rel.published_at);
-        var fecha = isNaN(f) ? '' : f.getDate() + ' ' + meses[f.getMonth()] + ' ' + f.getFullYear();
-        $('detalle-version').textContent = 'Versión ' + version + (fecha ? ' del ' + fecha : '') + ', gratis, para Android 7 o superior.';
-        $('dato-version').textContent = version;
-        $('placa-texto').textContent = 'V' + version.split('.').join('·');
-        $('placa-version').setAttribute('aria-label', 'Versión ' + version);
-        if (fecha) mostrar('t-fecha', 'dato-fecha', fecha);
-        if (/^https:\/\/github\.com\/DiceaDev\/drivepass\/releases\/tag\//.test(rel.html_url || '')) $('enlace-novedades').href = rel.html_url;
-        var apk = (rel.assets || []).filter(function (a) { return /\.apk$/i.test(a.name); })[0];
-        if (!apk) return;
-        mostrar('t-tamano', 'dato-tamano', Math.round(apk.size / 1048576) + ' MB');
-        // Solo enlaces del propio repositorio en GitHub.
-        if (/^https:\/\/github\.com\/DiceaDev\/drivepass\/releases\/download\//.test(apk.browser_download_url)) $('enlace-apk').href = apk.browser_download_url;
-        var huella = /^sha256:([0-9a-f]{64})$/.exec(apk.digest || '');
-        if (huella) { $('dato-huella').textContent = huella[1]; $('bloque-huella').hidden = false; }
-      })
+    function fechaChile(iso) {
+      var f = new Date(iso);
+      if (isNaN(f)) return '';
+      try {
+        var partes = new Intl.DateTimeFormat('es-CL', { timeZone: 'America/Santiago', day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(f);
+        var d = {}; partes.forEach(function (p) { d[p.type] = p.value; });
+        return Number(d.day) + ' ' + meses[Number(d.month) - 1] + ' ' + d.year;
+      } catch (e) { return f.getDate() + ' ' + meses[f.getMonth()] + ' ' + f.getFullYear(); }
+    }
+    function poner(clave, texto) {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-release="' + clave + '"]'), function (el) { el.textContent = texto; });
+    }
+    function aplicar(r) {
+      if (!r || !/^\d+\.\d+\.\d+$/.test(r.version || '')) return false;
+      poner('version', r.version);
+      poner('placa', 'V' + r.version.split('.').join('·'));
+      var fecha = fechaChile(r.publicada); if (fecha) poner('fecha', fecha);
+      if (typeof r.bytes === 'number' && r.bytes > 0) poner('tamano', Math.round(r.bytes / 1048576) + ' MB');
+      if (/^[0-9a-f]{64}$/.test(r.sha256 || '')) poner('huella', r.sha256);
+      if (/^[0-9a-f]{64}$/.test(r.certificado || '')) poner('certificado', r.certificado.match(/../g).join(':').toUpperCase());
+      var enlaces = { apk: /^https:\/\/github\.com\/DiceaDev\/drivepass\/releases\/download\/v[\d.]+\/[\w.-]+\.apk$/, notas: /^https:\/\/github\.com\/DiceaDev\/drivepass\/releases\/tag\/v[\d.]+$/ };
+      Object.keys(enlaces).forEach(function (k) {
+        if (!enlaces[k].test(r[k] || '')) return;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-release-href="' + k + '"]'), function (a) { a.href = r[k]; });
+      });
+      revisarCopia();
+      return true;
+    }
+    fetch('release.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(aplicar)
       .catch(function () {});
 
-    $('copiar-huella').addEventListener('click', function () {
-      var boton = this, texto = $('dato-huella').textContent;
-      if (!navigator.clipboard || !texto) return;
-      navigator.clipboard.writeText(texto).then(function () {
-        boton.textContent = 'Copiada';
-        setTimeout(function () { boton.textContent = 'Copiar'; }, 1800);
-      });
+    // Copiar la huella: solo si es un SHA-256 válido, con aviso para lectores de pantalla.
+    var boton = document.getElementById('copiar-huella');
+    var codigo = document.getElementById('dato-huella');
+    var estado = document.getElementById('estado-copia');
+    function huellaValida() { return /^[0-9a-f]{64}$/.test(codigo.textContent.trim()); }
+    function revisarCopia() { boton.disabled = !huellaValida(); }
+    revisarCopia();
+    boton.addEventListener('click', function () {
+      if (!huellaValida()) return;
+      var texto = codigo.textContent.trim();
+      function listo() { boton.textContent = 'Copiada'; estado.textContent = 'Huella copiada al portapapeles.'; setTimeout(function () { boton.textContent = 'Copiar'; estado.textContent = ''; }, 2200); }
+      function fallo() { estado.textContent = 'No se pudo copiar. Selecciona la huella y cópiala a mano.'; }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(texto).then(listo, fallo);
+      else {
+        var rango = document.createRange(); rango.selectNodeContents(codigo);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rango);
+        try { document.execCommand('copy') ? listo() : fallo(); } catch (e) { fallo(); }
+        sel.removeAllRanges();
+      }
     });
+  })();
+
+  // En iPhone o iPad el APK no sirve: se avisa antes del botón de descarga.
+  (function () {
+    var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (ios) document.getElementById('aviso-ios').hidden = false;
   })();
 
   // Modo control: pestañas y deslizamiento entre las capturas.
