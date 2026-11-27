@@ -1,9 +1,9 @@
 {
-  "version": "1.26.0",
-  "publicada": "2026-11-27T21:30:55Z",
-  "bytes": 70277777,
-  "sha256": "0568658deff3139b790a16324a01041c82ac11a5a40dad2e826fffcfedb65888",
-  "apk": "https://github.com/DiceaDev/drivepass/releases/download/v1.26.0/DrivePass-1.26.0.apk",
-  "notas": "https://github.com/DiceaDev/drivepass/releases/tag/v1.26.0",
+  "version": "1.26.1",
+  "publicada": "2026-11-27T22:40:27Z",
+  "bytes": 70281873,
+  "sha256": "fbde1e74e0b051377052700cd13e2e525a82e660bd21a3f57533171027c1eafa",
+  "apk": "https://github.com/DiceaDev/drivepass/releases/download/v1.26.1/DrivePass-1.26.1.apk",
+  "notas": "https://github.com/DiceaDev/drivepass/releases/tag/v1.26.1",
   "certificado": "e8be4c848c6d4657ac655700842726e5f12d813c7c26dab7e03f096b593d4851"
 }
